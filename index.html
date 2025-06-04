@@ -1,38 +1,110 @@
-<html lang="pt-BR"><head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversor</title>
+    <title>Sistema de Geração de Declarações</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:,">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="tipoDoc">
-            <label for="tipoDoc">Tipo de documento:</label>
-            <select name="tipoDoc" id="tipoDoc">
-                <option hidden="" selected="">Selecione uma das opções</option>
-                <option value="declaEsc">Declaração escolaridade</option>
-                <option value="declaTransf">Declaração transferência</option>
-            </select>
+    <div class="app-container">
+        <!-- Barra superior do aplicativo -->
+        <div class="app-header">
+            <div class="app-title">
+                <i class="fas fa-file-signature"></i>
+                <h1>Sistema de Declarações</h1>
+            </div>
+            <div class="app-toolbar">
+                <!-- Área reservada para futuros controles -->
+            </div>
         </div>
-        <div class="infoAluno">
-            <label for="nomeAluno">Nome completo do aluno:</label>
-            <input type="text" name="nomeAluno" id="nomeAluno">
-            <label for="raAluno">RA do aluno:</label>
-            <input type="text" name="raAluno" id="raAluno">
-            <label for="nascimento">Data de nascimento:</label>
-            <input type="date" name="nascimento" id="nascimento">
+
+        <!-- Menu lateral -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-tasks"></i>
+                <span>Menu</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><i class="fas fa-file-alt"></i> Gerar Declaração</li>
+            </ul>
+            <div class="sidebar-footer">
+                <span>v1.0.0</span>
+            </div>
         </div>
-        <div class="emissor">
-            <label for="emissor">Emissor do documento: </label>
-            <select name="emissor" id="emissor">
-                <option value="#" hidden="" selected="">Selecione uma das opções</option>
-                <option value="julia">Julia</option>
-                <option value="gabriel">Gabriel</option>
-            </select>
-        </div>
-        <div class="button">
-            <button type="button" onclick="gerarDoc()">Enviar dados</button>
+
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <div class="content-header">
+                <h2>Gerador de Declarações</h2>
+                <p>Preencha os dados abaixo para gerar um novo documento</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Tipo de Documento</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="tipoDoc"><i class="fas fa-file-alt"></i> Tipo de documento:</label>
+                        <select name="tipoDoc" id="tipoDoc" class="form-control">
+                            <option hidden selected>Selecione uma das opções</option>
+                            <option value="declaEsc">Declaração de escolaridade</option>
+                            <option value="declaTransf">Declaração de transferência</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Dados do Aluno</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="nomeAluno"><i class="fas fa-user"></i> Nome completo do aluno:</label>
+                            <input type="text" name="nomeAluno" id="nomeAluno" class="form-control" placeholder="Digite o nome completo">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="raAluno"><i class="fas fa-id-card"></i> RA do aluno:</label>
+                            <input type="text" name="raAluno" id="raAluno" class="form-control" placeholder="Digite o RA">
+                        </div>
+                        <div class="form-group">
+                            <label for="nascimento"><i class="fas fa-calendar-alt"></i> Data de nascimento:</label>
+                            <input type="date" name="nascimento" id="nascimento" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user-edit"></i>
+                    <h3>Emissor do Documento</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="emissor"><i class="fas fa-user-edit"></i> Responsável pela emissão:</label>
+                        <select name="emissor" id="emissor" class="form-control">
+                            <option value="#" hidden selected>Selecione uma das opções</option>
+                            <option value="julia">Julia</option>
+                            <option value="gabriel">Gabriel</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button type="button" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</button>
+                <button type="button" class="btn btn-primary" id="btnGerar"><i class="fas fa-paper-plane"></i> Gerar Documento</button>
+            </div>
         </div>
     </div>
 
