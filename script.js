@@ -54,7 +54,8 @@ function validarCampos() {
         "nomeAluno": "nome do aluno",
         "raAluno": "RA do aluno",
         "nascimento": "data de nascimento",
-        "emissor": "emissor do documento"
+        "emissor": "emissor do documento",
+        "serie" : "serie do aluno"
     };
     
     const camposVazios = [];
@@ -119,6 +120,7 @@ function gerarDoc() {
     let nascimento = document.getElementById("nascimento").value;
     let emissor = document.getElementById("emissor").value;
     let nascimentoFormatado = formatarDataBr(nascimento);
+    let serie = document.getElementById("serie").value
 
     const hoje = new Date();
     const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
@@ -185,7 +187,8 @@ function gerarDoc() {
                 nascimento: nascimentoFormatado,
                 data: data,
                 emissor: emissorInfo.nome,
-                cargoEmissor: emissorInfo.cargo
+                cargoEmissor: emissorInfo.cargo,
+                serie: serie
             });
             
             try {
