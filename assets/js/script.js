@@ -143,10 +143,10 @@ function gerarDoc() {
     let modelo = "";
     switch(tipodoc) {
         case "declaEsc":
-            modelo = "./modelos/DECLARAÇÃO OFICIAL - ESCOLARIDADE.docx";
+            modelo = "../../modelos/DECLARAÇÃO OFICIAL - ESCOLARIDADE.docx";
             break;
         case "declaTransf":
-            modelo = "./modelos/DECLARAÇÃO OFICIAL - TRANSFERÊNCIA.docx";
+            modelo = "../../modelos/DECLARAÇÃO OFICIAL - TRANSFERÊNCIA.docx";
             break;
         default:
             showToast("Tipo de documento inválido", "error");
