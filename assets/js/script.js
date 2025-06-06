@@ -114,7 +114,7 @@ function gerarDoc() {
         console.log("Botão alterado para estado de loading");
         
         // Coleta os dados do formulário
-        let tipodoc = document.getElementById("tipoDoc").value;
+    let tipodoc = document.getElementById("tipoDoc").value;
     let nomeAluno = document.getElementById("nomeAluno").value;
     let raAluno = document.getElementById("raAluno").value;
     let nascimento = document.getElementById("nascimento").value;

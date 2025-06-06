@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Geração de Docuemntos</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Barra superior do aplicativo -->
+        <div class="app-header">
+            <div class="app-title">
+                <i class="fas fa-file-signature"></i>
+                <h1>Sistema de Documentos</h1>
+            </div>
+            <div class="app-toolbar">
+                <!-- Área reservada para futuros controles -->
+            </div>
+        </div>
+
+        <!-- Menu lateral -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-tasks"></i>
+                <span>Menu</span>
+            </div>
+            <ul class="sidebar-menu">
+                <a href="index.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Declaração</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="abonadas.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Abonada</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="dispensa.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Dispensa</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="#">
+                    <li class="active"><i class="fas fa-file-alt"></i>Gerar Matrícula</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="historico.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Histórico</li>
+                </a>
+            </ul>
+            <div class="sidebar-footer">
+                <span>v1.0.0</span>
+            </div>
+        </div>
+
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <div class="content-header">
+                <h2>Gerador de Declarações</h2>
+                <p>Preencha os dados abaixo para gerar um novo documento</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Tipo de Documento</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="tipoDoc"><i class="fas fa-file-alt"></i> Tipo de documento:</label>
+                        <select name="tipoDoc" id="tipoDoc" class="form-control">
+                            <option hidden selected>Selecione uma das opções</option>
+                            <option value="declaEsc">Declaração de escolaridade</option>
+                            <option value="declaTransf">Declaração de transferência</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Dados do Aluno</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="nomeAluno"><i class="fas fa-user"></i> Nome completo do aluno:</label>
+                            <input type="text" name="nomeAluno" id="nomeAluno" class="form-control" placeholder="Digite o nome completo">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="raAluno"><i class="fas fa-id-card"></i> RA do aluno:</label>
+                            <input type="text" name="raAluno" id="raAluno" class="form-control" placeholder="Digite o RA">
+                        </div>
+                        <div class="form-group">
+                            <label for="nascimento"><i class="fas fa-calendar-alt"></i> Data de nascimento:</label>
+                            <input type="date" name="nascimento" id="nascimento" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="serie">Série:</label>
+                            <select name="serie" id="serie" class="form-control">
+                                <option value="" hidden>Selecione a série do aluno</option>
+                                <option value="1º ano A">1º ano A</option>
+                                <option value="1º ano B">1º ano B</option>
+                                <option value="2º ano">2º ano</option>
+                                <option value="3º ano">3º ano</option>
+                                <option value="4º ano">4º ano</option>
+                                <option value="5º ano">5º ano</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user-edit"></i>
+                    <h3>Emissor do Documento</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="emissor"><i class="fas fa-user-edit"></i> Responsável pela emissão:</label>
+                        <select name="emissor" id="emissor" class="form-control">
+                            <option value="#" hidden selected>Selecione uma das opções</option>
+                            <option value="julia">Julia</option>
+                            <option value="gabriel">Gabriel</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button type="button" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</button>
+                <button type="button" class="btn btn-primary" id="btnGerar"><i class="fas fa-paper-plane"></i> Gerar Documento</button>
+            </div>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.min.js"></script> <!--Serve para abrir um arquivo modelo-->
+<script src="https://unpkg.com/docxtemplater@3.30.1/build/docxtemplater.js"></script> <!--Serve para adicionar elementos em um documento word-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> <!--Serve para salvar o arquivo modificado-->
+<script src="../js/script.js"></script>
+</body></html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Geração de Declarações</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sistema de Geração de Documentos</title>
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -14,7 +14,7 @@
         <div class="app-header">
             <div class="app-title">
                 <i class="fas fa-file-signature"></i>
-                <h1>Sistema de Declarações</h1>
+                <h1>Sistema de Documentos</h1>
             </div>
             <div class="app-toolbar">
                 <!-- Área reservada para futuros controles -->
@@ -28,7 +28,29 @@
                 <span>Menu</span>
             </div>
             <ul class="sidebar-menu">
-                <li class="active"><i class="fas fa-file-alt"></i> Gerar Declaração</li>
+                <a href="#">
+                    <li class="active"><i class="fas fa-file-alt"></i>Gerar Declaração</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="abonadas.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Abonada</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="dispensa.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Dispensa</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="matricula.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Matrícula</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="historico.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Histórico</li>
+                </a>
             </ul>
             <div class="sidebar-footer">
                 <span>v1.0.0</span>
@@ -123,5 +145,5 @@
 <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.min.js"></script> <!--Serve para abrir um arquivo modelo-->
 <script src="https://unpkg.com/docxtemplater@3.30.1/build/docxtemplater.js"></script> <!--Serve para adicionar elementos em um documento word-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> <!--Serve para salvar o arquivo modificado-->
-<script src="script.js"></script>
+<script src="../js/script.js"></script>
 </body></html>

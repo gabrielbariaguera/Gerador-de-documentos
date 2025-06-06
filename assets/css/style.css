@@ -44,6 +44,11 @@ body {
     overflow: hidden;
 }
 
+a{
+    text-decoration: none;
+    color: white;
+}
+
 .app-container {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Geração de Documentos</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Barra superior do aplicativo -->
+        <div class="app-header">
+            <div class="app-title">
+                <i class="fas fa-file-signature"></i>
+                <h1>Sistema de Documentos</h1>
+            </div>
+            <div class="app-toolbar">
+                <!-- Área reservada para futuros controles -->
+            </div>
+        </div>
+
+        <!-- Menu lateral -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-tasks"></i>
+                <span>Menu</span>
+            </div>
+            <ul class="sidebar-menu">
+                <a href="index.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Declaração</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="#">
+                    <li class="active"><i class="fas fa-file-alt"></i>Gerar Abonada</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="dispensa.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Dispensa</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="matricula.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Matrícula</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="historico.html">
+                    <li><i class="fas fa-file-alt"></i>Gerar Histórico</li>
+                </a>
+            </ul>
+            <div class="sidebar-footer">
+                <span>v1.0.0</span>
+            </div>
+        </div>
+
+        <!-- Conteúdo principal -->
+        <div class="content">
+            <div class="content-header">
+                <h2>Gerador de Abonadas</h2>
+                <p>Preencha os dados abaixo para gerar um novo documento</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Dados do Funcionário</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="nomeFuncionario"><i class="fas fa-user"></i> Nome do funcionário:</label>
+                            <select name="nomeFuncionario" id="nomeFuncionario" class="form-control">
+                                <option value="" hidden>Selecione o funcionário</option>
+                                <option value="agnaldo">Agnaldo</option>
+                                <option value="aline">Aline</option>
+                                <option value="cacilda">Cacilda</option>
+                                <option value="carolina">Carolina</option>
+                                <option value="celia">Célia</option>
+                                <option value="claudiana">Claudiana</option>
+                                <option value="danieli">Danieli</option>
+                                <option value="eliad">Eliad</option>
+                                <option value="eliane">Eliane</option>
+                                <option value="elinety">Elinety</option>
+                                <option value="endagabi">Endagabi</option>
+                                <option value="gabriel">Gabriel</option>
+                                <option value="izabel">Izabel</option>
+                                <option value="julia">Júlia</option>
+                                <option value="marcia">Marcia</option>
+                                <option value="mariana">Mariana</option>
+                                <option value="mariei">Marinei</option>
+                                <option value="marisa">Marisa</option>
+                                <option value="marlei">Marlei</option>
+                                <option value="mathias">Mathias</option>
+                                <option value="neuci">Neuci</option>
+                                <option value="nisleia">Nisléia</option>
+                                <option value="rosana">Rosana</option>
+                                <option value="rosimar">Rosimar</option>
+                                <option value="rosineia">Rosineia</option>
+                                <option value="sebastiao">Sebastião</option>
+                                <option value="suzimara">Suzimara</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user-edit"></i>
+                    <h3>Informaçoes do abono</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="dataAbono"><i class="fas fa-calendar-alt"></i> Data do abono:</label>
+                        <input type="date" name="dataAbono" id="dataAbono" class="form-control">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button type="button" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</button>
+                <button type="button" class="btn btn-primary" id="btnGerar"><i class="fas fa-paper-plane"></i> Gerar Documento</button>
+            </div>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.min.js"></script> <!--Serve para abrir um arquivo modelo-->
+<script src="https://unpkg.com/docxtemplater@3.30.1/build/docxtemplater.js"></script> <!--Serve para adicionar elementos em um documento word-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> <!--Serve para salvar o arquivo modificado-->
+<script src="../js/script.js"></script>
+</body></html>
