@@ -103,12 +103,12 @@ function gerarAbono() {
         // Coleta os dados do formulário
     let nomeFunc = document.getElementById("nomeFuncionario").value
     let dataAbono = document.getElementById("dataAbono").value
-    let novaDataAbono = new Date(dataAbono)
+    let novaDataAbono = new Date(dataAbono + 'T00:00')
 
     const hoje = new Date();
     const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
     const data = `${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`;
-    const dataAbonoFormatada = `${novaDataAbono.getDate()} de ${meses[novaDataAbono.getMonth()]} de ${novaDataAbono.getFullYear()}`;
+    const dataAbonoFormatada = `${novaDataAbono.getDate()} de ${meses[novaDataAbono.getMonth()]} de ${novaDataAbono.getFullYear()}`;    
     
     const funcionarios = {
         agnaldo: { nomeCompleto: "AGNALDO MAURICIO DA SILVA", cod: "633", cargo: "SERVIÇOS GERAIS" },
@@ -137,7 +137,7 @@ function gerarAbono() {
         rosimar: { nomeCompleto: "ROSIMAR ANTÔNIA POSSEBON", cod: "338", cargo: "MERENDEIRA" },
         rosineia: { nomeCompleto: "ROSINEIA FERREIRA LIMA", cod: "387", cargo: "MERENDEIRA" },
         sebastiao: { nomeCompleto: "SEBASTIÃO RAMALHO FILHO", cod: "", cargo: "" },
-        suzimara: { nomeCompleto: "SUZIMARA", cod: "641", cargo: "SERVIÇOS GERAIS" }
+        suzimara: { nomeCompleto: "SUZIMARA DA SILVA", cod: "641", cargo: "SERVIÇOS GERAIS" }
         
     };
     
