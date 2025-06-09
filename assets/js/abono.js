@@ -1,4 +1,4 @@
-// filepath: /Users/arielaio/Desktop/Projetos/Gerador-de-declaracoes/script.js
+import { formatarDataBr } from "./utils.js";
 
 // Função para exibir mensagens de notificação
 function showToast(message, type = 'success') {
@@ -50,12 +50,7 @@ function validarCampos() {
     console.log("Validando campos do formulário");
     
     const campos = {
-        "tipoDoc": "tipo de documento",
-        "nomeAluno": "nome do aluno",
-        "raAluno": "RA do aluno",
-        "nascimento": "data de nascimento",
-        "emissor": "emissor do documento",
-        "serie" : "serie do aluno"
+        
     };
     
     const camposVazios = [];
@@ -87,16 +82,8 @@ function validarCampos() {
     return true;
 }
 
-// Formata data de YYYY-MM-DD para DD/MM/YYYY
-function formatarDataBr(nascimento) {
-    if (!nascimento) return '';
-    const [ano, mes, dia] = nascimento.split('-');
-    return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${ano}`;
-}
-
-// Função principal para gerar documentos
-function gerarDec() {
-    console.log("Função gerarDoc() iniciada");
+function gerarAbono() {
+    console.log("Função gerarAbono() iniciada");
     
     if (!validarCampos()) {
         console.log("Validação de campos falhou");
@@ -104,7 +91,7 @@ function gerarDec() {
     }
     
     // Pega o botão e guarda o texto original
-    const botao = document.getElementById('btnGerarDec');
+    const botao = document.getElementById('btnGerarAbono');
     const textoOriginal = botao.innerHTML;
     
     try {
@@ -114,45 +101,51 @@ function gerarDec() {
         console.log("Botão alterado para estado de loading");
         
         // Coleta os dados do formulário
-    let tipodoc = document.getElementById("tipoDoc").value;
-    let nomeAluno = document.getElementById("nomeAluno").value;
-    let raAluno = document.getElementById("raAluno").value;
-    let nascimento = document.getElementById("nascimento").value;
-    let emissor = document.getElementById("emissor").value;
-    let nascimentoFormatado = formatarDataBr(nascimento);
-    let serie = document.getElementById("serie").value
+    let nomeFunc = document.getElementById("nomeFuncionario").value
+    let dataAbono = document.getElementById("dataAbono").value
+    let novaDataAbono = new Date(dataAbono)
 
     const hoje = new Date();
     const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
     const data = `${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`;
+    const dataAbonoFormatada = `${novaDataAbono.getDate()} de ${meses[novaDataAbono.getMonth()]} de ${novaDataAbono.getFullYear()}`;
     
-    const emissores = {
-        gabriel: {
-            nome: "Gabriel Aguera Baria",
-            cargo: "ESTAGIÁRIO"
-        },
-        julia: {
-            nome: "Julia de Lima Batista",
-            cargo: "ESCRITUÁRIA"
-        }
+    const funcionarios = {
+        agnaldo: { nomeCompleto: "AGNALDO MAURICIO DA SILVA", cod: "633", cargo: "SERVIÇOS GERAIS" },
+        aline: { nomeCompleto: "ALINE ROSSI ROMERO", cod: "377", cargo: "ASSISTENTE SOCIAL" },
+        cacilda: { nomeCompleto: "CACILDA RIBEIRO LEAL DE MORAIS", cod: "376", cargo: "SERVIÇOS GERAIS" },
+        carolina: { nomeCompleto: "CAROLINA CONSTANTINO BUENO", cod: "296", cargo: "PEB" },
+        celia: { nomeCompleto: "CÉLIA DO CARMO TOSTA", cod: "231", cargo: "INSPETOR DE ALUNO" },
+        claudiana: { nomeCompleto: "CLAUDIANA DE JESUS MORAIS", cod: "626", cargo: "SERVIÇOS GERAIS" },
+        danieli: { nomeCompleto: "DANIELI RINARDI DA SILVEIRA", cod: "594", cargo: "PEB" },
+        eliad: { nomeCompleto: "ELIAD GARCIA RAMOS PRADO", cod: "298", cargo: "PEB" },
+        eliane: { nomeCompleto: "ELIANE CRISTINA DA COSTA", cod: "305", cargo: "PEB" },
+        elinety: { nomeCompleto: "ELINETY LOURENÇO DE SOUZA SANTOS", cod: "395", cargo: "SERVIÇOS GERAIS" },
+        endagabi: { nomeCompleto: "ENDAGABI MUNIQUI DE OLIVEIRA FERNANDES", cod: "", cargo: "" },
+        gabriel: { nomeCompleto: "GABRIEL AGUERA BARIA", cod: "", cargo: "ESTAGIÁRIO" },
+        izabel: { nomeCompleto: "IZABEL CRISTINA DE PAULA MARANGONI", cod: "620", cargo: "PEB" },
+        julia: { nomeCompleto: "JÚLIA DE LIMA BATISTA", cod: "654", cargo: "ESCRITURÁRIO I" },
+        marcia: { nomeCompleto: "MARCIA CELESTINA RAMOS", cod: "", cargo: "" },
+        mariana: { nomeCompleto: "MARIANA FANTINI RIBEIRO", cod: "571", cargo: "PEB" },
+        marinei: { nomeCompleto: "MARINEI DE FÁTIMA ELOI FRANÇA", cod: "309", cargo: "PEB" },
+        marisa: { nomeCompleto: "MARISA FERNANDES", cod: "294", cargo: "MERENDEIRA" },
+        marlei: { nomeCompleto: "MARLEI DE LIMA NANYA FELIPE", cod: "602", cargo: "PEB" },
+        mathias: { nomeCompleto: "MATHIAS ROBERTO BATISTA", cod: "299", cargo: "PEB" },
+        neuci: { nomeCompleto: "NEUCI DIAS RODRIGUES", cod: "301", cargo: "PEB" },
+        nisleia: { nomeCompleto: "NISLÉIA FERNANDA DE SOUZA SANTOS", cod: "643", cargo: "PEB" },
+        rosana: { nomeCompleto: "ROSANA APARECIDA DOS SANTOS", cod: "341", cargo: "INSPETOR DE ALUNO" },
+        rosimar: { nomeCompleto: "ROSIMAR ANTÔNIA POSSEBON", cod: "338", cargo: "MERENDEIRA" },
+        rosineia: { nomeCompleto: "ROSINEIA FERREIRA LIMA", cod: "387", cargo: "MERENDEIRA" },
+        sebastiao: { nomeCompleto: "SEBASTIÃO RAMALHO FILHO", cod: "", cargo: "" },
+        suzimara: { nomeCompleto: "SUZIMARA", cod: "641", cargo: "SERVIÇOS GERAIS" }
+        
     };
     
-    let emissorInfo = emissores[emissor];
+    let funcionarioInfo = funcionarios[nomeFunc];
+
 
     // Define o modelo baseado no tipo de documento
-    let modelo = "";
-    switch(tipodoc) {
-        case "declaEsc":
-            modelo = "../../modelos/DECLARAÇÃO OFICIAL - ESCOLARIDADE.docx";
-            break;
-        case "declaTransf":
-            modelo = "../../modelos/DECLARAÇÃO OFICIAL - TRANSFERÊNCIA.docx";
-            break;
-        default:
-            showToast("Tipo de documento inválido", "error");
-            resetarBotao();
-            return;
-    }
+    let modelo = "../../modelos/MODELO - PEDIDO DE ABONO.docx";
 
     // Função para resetar o botão
     function resetarBotao() {
@@ -182,13 +175,11 @@ function gerarDec() {
 
             // Define os valores a serem inseridos
             doc.setData({
-                nome: nomeAluno,
-                ra: raAluno,
-                nascimento: nascimentoFormatado,
+                nome: funcionarioInfo.nomeCompleto,
+                cod: funcionarioInfo.cod,
+                cargo: funcionarioInfo.cargo,
+                dataAbono: dataAbonoFormatada,
                 data: data,
-                emissor: emissorInfo.nome,
-                cargoEmissor: emissorInfo.cargo,
-                serie: serie
             });
             
             try {
@@ -196,7 +187,7 @@ function gerarDec() {
                 doc.render();
                 // Gera o blob e faz o download
                 const blob = doc.getZip().generate({ type: "blob" });
-                saveAs(blob, `declaracao-${nomeAluno}.docx`);
+                saveAs(blob, `Abono-${nomeFunc}.docx`);
                 showToast("Documento gerado com sucesso!", "success");
             } catch (error) {
                 console.error("Erro ao renderizar o documento:", error);
@@ -227,7 +218,7 @@ function gerarDec() {
 // Inicializa os event listeners quando o documento estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
     // Adiciona o evento click ao botão de gerar documento
-    document.getElementById('btnGerar').addEventListener('click', gerarDoc);
+    document.getElementById('btnGerarAbono').addEventListener('click', gerarAbono);
     
     // Adiciona evento para remover erro ao modificar campos
     const inputs = document.querySelectorAll('.form-control');

@@ -60,7 +60,7 @@
         <!-- Conteúdo principal -->
         <div class="content">
             <div class="content-header">
-                <h2>Gerador de Declarações</h2>
+                <h2>Gerador de Histórico</h2>
                 <p>Preencha os dados abaixo para gerar um novo documento</p>
             </div>
 
@@ -74,8 +74,8 @@
                         <label for="tipoDoc"><i class="fas fa-file-alt"></i> Tipo de documento:</label>
                         <select name="tipoDoc" id="tipoDoc" class="form-control">
                             <option hidden selected>Selecione uma das opções</option>
-                            <option value="declaEsc">Declaração de escolaridade</option>
-                            <option value="declaTransf">Declaração de transferência</option>
+                            <option value="hist">Histórico escolar</option>
+                            <option value="histTrans">Histórico escolar com transferência</option>
                         </select>
                     </div>
                 </div>
@@ -88,31 +88,80 @@
                 </div>
                 <div class="card-body">
                     <div class="form-row">
-                        <div class="form-group full-width">
+                        <div class="form-group">
                             <label for="nomeAluno"><i class="fas fa-user"></i> Nome completo do aluno:</label>
                             <input type="text" name="nomeAluno" id="nomeAluno" class="form-control" placeholder="Digite o nome completo">
                         </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group">
                             <label for="raAluno"><i class="fas fa-id-card"></i> RA do aluno:</label>
                             <input type="text" name="raAluno" id="raAluno" class="form-control" placeholder="Digite o RA">
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="nascimento"><i class="fas fa-calendar-alt"></i> Data de nascimento:</label>
                             <input type="date" name="nascimento" id="nascimento" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="serie">Série:</label>
-                            <select name="serie" id="serie" class="form-control">
-                                <option value="" hidden>Selecione a série do aluno</option>
-                                <option value="1º ano A">1º ano A</option>
-                                <option value="1º ano B">1º ano B</option>
-                                <option value="2º ano">2º ano</option>
-                                <option value="3º ano">3º ano</option>
-                                <option value="4º ano">4º ano</option>
-                                <option value="5º ano">5º ano</option>
-                            </select>
+                            <label for="municipio">Município:</label>
+                            <input type="text" name="municipio" id="municipio" class="form-control" placeholder="Digite o município">
+                        </div>
+                        <div class="form-group">
+                            <label for="raAluno"><i class="fas fa-id-card"></i> UF:</label>
+                            <input type="text" name="uf" id="uf" class="form-control" placeholder="Digite o UF">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="anoInicio">Ano de ínicio: </label>
+                            <input type="number" name="anoInicio" id="anoInicio" class="form-control" placeholder="Digite o ano que o aluno iniciou seus estudos">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Base comum</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ano1">1º ano:</label>
+                            <input type="number" name="ano1" id="ano1" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="ano2">1º ano:</label>
+                            <input type="number" name="ano2" id="ano2" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="ano3">1º ano:</label>
+                            <input type="number" name="ano3" id="ano3" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="ano4">1º ano:</label>
+                            <input type="number" name="ano4" id="ano4" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="ano5">1º ano:</label>
+                            <input type="number" name="ano5" id="ano5" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            
+                        </div>
+                        <div class="form-group">
+                            
+                        </div>
+                        <div class="form-group">
+                           
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            
                         </div>
                     </div>
                 </div>
