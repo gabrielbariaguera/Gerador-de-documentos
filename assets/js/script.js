@@ -227,7 +227,7 @@ function gerarDec() {
 // Inicializa os event listeners quando o documento estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
     // Adiciona o evento click ao botão de gerar documento
-    document.getElementById('btnGerar').addEventListener('click', gerarDoc);
+    document.getElementById('btnGerar').addEventListener('click', gerarDec);
     
     // Adiciona evento para remover erro ao modificar campos
     const inputs = document.querySelectorAll('.form-control');

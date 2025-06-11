@@ -145,7 +145,21 @@ function gerarAbono() {
 
 
     // Define o modelo baseado no tipo de documento
-    let modelo = "../../modelos/MODELO - PEDIDO DE ABONO.docx";
+    let tipoAbono = document.getElementById("tipoAbono").value;
+    let modelo = "";
+    switch(tipoAbono) {
+        case "abono":
+            modelo = "../../modelos/MODELO - PEDIDO DE ABONO.docx";
+            break;
+        case "maes":
+            modelo = "../../modelos/dia maes.docx";
+            break;
+        default:
+            showToast("Tipo de documento inválido", "error");
+            resetarBotao();
+            return;
+    }
+
 
     // Função para resetar o botão
     function resetarBotao() {

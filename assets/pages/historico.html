@@ -1,198 +1,453 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema de Geração de Documentos</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
     <div class="app-container">
-        <!-- Barra superior do aplicativo -->
-        <div class="app-header">
-            <div class="app-title">
-                <i class="fas fa-file-signature"></i>
-                <h1>Sistema de Documentos</h1>
-            </div>
-            <div class="app-toolbar">
-                <!-- Área reservada para futuros controles -->
-            </div>
+      <!-- Barra superior do aplicativo -->
+      <div class="app-header">
+        <div class="app-title">
+          <i class="fas fa-file-signature"></i>
+          <h1>Sistema de Documentos</h1>
+        </div>
+        <div class="app-toolbar">
+          <!-- Área reservada para futuros controles -->
+        </div>
+      </div>
+
+      <!-- Menu lateral -->
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <i class="fas fa-tasks"></i>
+          <span>Menu</span>
+        </div>
+        <ul class="sidebar-menu">
+          <a href="../../index.html">
+            <li><i class="fas fa-file-alt"></i>Gerar Declaração</li>
+          </a>
+        </ul>
+        <ul class="sidebar-menu">
+          <a href="abonadas.html">
+            <li><i class="fas fa-file-alt"></i>Gerar Abonada</li>
+          </a>
+        </ul>
+        <ul class="sidebar-menu">
+          <a href="dispensa.html">
+            <li><i class="fas fa-file-alt"></i>Gerar Dispensa</li>
+          </a>
+        </ul>
+        <ul class="sidebar-menu">
+          <a href="matricula.html">
+            <li><i class="fas fa-file-alt"></i>Gerar Matrícula</li>
+          </a>
+        </ul>
+        <ul class="sidebar-menu">
+          <a href="#">
+            <li class="active">
+              <i class="fas fa-file-alt"></i>Gerar Histórico
+            </li>
+          </a>
+        </ul>
+        <div class="sidebar-footer">
+          <span>v1.0.0</span>
+        </div>
+      </div>
+
+      <!-- Conteúdo principal -->
+      <div class="content">
+        <div class="content-header">
+          <h2>Gerador de Histórico</h2>
+          <p>Preencha os dados abaixo para gerar um novo documento</p>
         </div>
 
-        <!-- Menu lateral -->
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <i class="fas fa-tasks"></i>
-                <span>Menu</span>
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-file-alt"></i>
+            <h3>Tipo de Documento</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="tipoDoc"
+                ><i class="fas fa-file-alt"></i> Tipo de documento:</label
+              >
+              <select name="tipoDoc" id="tipoDoc" class="form-control">
+                <option hidden selected>Selecione uma das opções</option>
+                <option value="hist">Histórico escolar</option>
+                <option value="histTrans">
+                  Histórico escolar com transferência
+                </option>
+              </select>
             </div>
-            <ul class="sidebar-menu">
-                <a href="../../index.html">
-                    <li><i class="fas fa-file-alt"></i>Gerar Declaração</li>
-                </a>
-            </ul>
-            <ul class="sidebar-menu">
-                <a href="abonadas.html">
-                    <li><i class="fas fa-file-alt"></i>Gerar Abonada</li>
-                </a>
-            </ul>
-            <ul class="sidebar-menu">
-                <a href="dispensa.html">
-                    <li><i class="fas fa-file-alt"></i>Gerar Dispensa</li>
-                </a>
-            </ul>
-            <ul class="sidebar-menu">
-                <a href="matricula.html">
-                    <li><i class="fas fa-file-alt"></i>Gerar Matrícula</li>
-                </a>
-            </ul>
-            <ul class="sidebar-menu">
-                <a href="#">
-                    <li class="active"><i class="fas fa-file-alt"></i>Gerar Histórico</li>
-                </a>
-            </ul>
-            <div class="sidebar-footer">
-                <span>v1.0.0</span>
-            </div>
+          </div>
         </div>
 
-        <!-- Conteúdo principal -->
-        <div class="content">
-            <div class="content-header">
-                <h2>Gerador de Histórico</h2>
-                <p>Preencha os dados abaixo para gerar um novo documento</p>
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Dados do Aluno</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nomeAluno"
+                  ><i class="fas fa-user"></i> Nome completo do aluno:</label
+                >
+                <input
+                  type="text"
+                  name="nomeAluno"
+                  id="nomeAluno"
+                  class="form-control"
+                  placeholder="Digite o nome completo"
+                />
+              </div>
+              <div class="form-group">
+                <label for="raAluno"
+                  ><i class="fas fa-id-card"></i> RA do aluno:</label
+                >
+                <input
+                  type="text"
+                  name="raAluno"
+                  id="raAluno"
+                  class="form-control"
+                  placeholder="Digite o RA"
+                />
+              </div>
             </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-file-alt"></i>
-                    <h3>Tipo de Documento</h3>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="tipoDoc"><i class="fas fa-file-alt"></i> Tipo de documento:</label>
-                        <select name="tipoDoc" id="tipoDoc" class="form-control">
-                            <option hidden selected>Selecione uma das opções</option>
-                            <option value="hist">Histórico escolar</option>
-                            <option value="histTrans">Histórico escolar com transferência</option>
-                        </select>
-                    </div>
-                </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nascimento"
+                  ><i class="fas fa-calendar-alt"></i> Data de
+                  nascimento:</label
+                >
+                <input
+                  type="date"
+                  name="nascimento"
+                  id="nascimento"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="municipio">Município:</label>
+                <input
+                  type="text"
+                  name="municipio"
+                  id="municipio"
+                  class="form-control"
+                  placeholder="Digite o município"
+                />
+              </div>
+              <div class="form-group">
+                <label for="raAluno"><i class="fas fa-id-card"></i> UF:</label>
+                <input
+                  type="text"
+                  name="uf"
+                  id="uf"
+                  class="form-control"
+                  placeholder="Digite o UF"
+                />
+              </div>
             </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-user-graduate"></i>
-                    <h3>Dados do Aluno</h3>
-                </div>
-                <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nomeAluno"><i class="fas fa-user"></i> Nome completo do aluno:</label>
-                            <input type="text" name="nomeAluno" id="nomeAluno" class="form-control" placeholder="Digite o nome completo">
-                        </div>
-                        <div class="form-group">
-                            <label for="raAluno"><i class="fas fa-id-card"></i> RA do aluno:</label>
-                            <input type="text" name="raAluno" id="raAluno" class="form-control" placeholder="Digite o RA">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nascimento"><i class="fas fa-calendar-alt"></i> Data de nascimento:</label>
-                            <input type="date" name="nascimento" id="nascimento" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="municipio">Município:</label>
-                            <input type="text" name="municipio" id="municipio" class="form-control" placeholder="Digite o município">
-                        </div>
-                        <div class="form-group">
-                            <label for="raAluno"><i class="fas fa-id-card"></i> UF:</label>
-                            <input type="text" name="uf" id="uf" class="form-control" placeholder="Digite o UF">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="anoInicio">Ano de ínicio: </label>
-                            <input type="number" name="anoInicio" id="anoInicio" class="form-control" placeholder="Digite o ano que o aluno iniciou seus estudos">
-                        </div>
-                    </div>
-                </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="anoInicio">Ano de ínicio: </label>
+                <input
+                  type="number"
+                  name="anoInicio"
+                  id="anoInicio"
+                  class="form-control"
+                  placeholder="Digite o ano que o aluno iniciou seus estudos"
+                />
+              </div>
             </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-user-graduate"></i>
-                    <h3>Base comum</h3>
-                </div>
-                <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ano1">1º ano:</label>
-                            <input type="number" name="ano1" id="ano1" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="ano2">1º ano:</label>
-                            <input type="number" name="ano2" id="ano2" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="ano3">1º ano:</label>
-                            <input type="number" name="ano3" id="ano3" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="ano4">1º ano:</label>
-                            <input type="number" name="ano4" id="ano4" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="ano5">1º ano:</label>
-                            <input type="number" name="ano5" id="ano5" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            
-                        </div>
-                        <div class="form-group">
-                            
-                        </div>
-                        <div class="form-group">
-                           
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-user-edit"></i>
-                    <h3>Emissor do Documento</h3>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="emissor"><i class="fas fa-user-edit"></i> Responsável pela emissão:</label>
-                        <select name="emissor" id="emissor" class="form-control">
-                            <option value="#" hidden selected>Selecione uma das opções</option>
-                            <option value="julia">Julia</option>
-                            <option value="gabriel">Gabriel</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="action-bar">
-                <button type="button" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</button>
-                <button type="button" class="btn btn-primary" id="btnGerar"><i class="fas fa-paper-plane"></i> Gerar Documento</button>
-            </div>
+          </div>
         </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Matérias</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <h3>
+                  Matéria:
+                  <select name="materia" id="materia">
+                    <option value="" hidden>Selecione a matéria</option>
+                    <option value="lingua-portuguesa">Lingua Portuguesa</option>
+                    <option value="arte">Arte</option>
+                    <option value="educacao-fisica">Educação Física</option>
+                    <option value="historia">História</option>
+                    <option value="geografia">Geografia</option>
+                    <option value="matematica">Matemática</option>
+                    <option value="ciencias-da-natureza">
+                      Ciências da Natureza
+                    </option>
+                    <option value="assembleia">Assembleia</option>
+                    <option value="linguagens-artisticas">
+                      Linguagens Artísticas
+                    </option>
+                    <option value="orientacao-de-estudos">
+                      Orientação de Estudos
+                    </option>
+                    <option value="lingua-inglesa-lem">
+                      Língua Inglesa (LEM)
+                    </option>
+                    <option value="cultura-do-movimento">
+                      Cultura do Movimento
+                    </option>
+                    <option value="projeto-de-convivencia">
+                      Projeto de Convivência
+                    </option>
+                    <option value="praticas-experimentais">
+                      Práticas Experimentais
+                    </option>
+                    <option value="tecnologia-e-inovacao">
+                      Tecnologia e Inovação
+                    </option>
+                  </select>
+                </h3>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="notaAno1">1º ano:</label>
+                <input
+                  type="number"
+                  name="notaAno1"
+                  id="notaAno1"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="notaAno2">2º ano:</label>
+                <input
+                  type="number"
+                  name="notaAno2"
+                  id="notaAno2"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="notaAno3">3º ano:</label>
+                <input
+                  type="number"
+                  name="notaAno3"
+                  id="notaAno3"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="notaAno4">4º ano:</label>
+                <input
+                  type="number"
+                  name="notaAno4"
+                  id="notaAno4"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="notaAno5">5º ano:</label>
+                <input
+                  type="number"
+                  name="notaAno5"
+                  id="notaAno5"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <button
+                  class="btn btn-primary form-control"
+                  id="btnSalvarNota"
+                  type="button"
+                >
+                  Salvar Informações
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-user-edit"></i>
+            <h3>Aulas</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <h3>
+                Total de aulas:
+                <select name="tipoaula" id="tipoaula">
+                  <option value="" hidden>Selecione o tipo de aula</option>
+                  <option value="comum">Base comum</option>
+                  <option value="diversificada">Parte diversificada</option>
+                  <option value="semanais">Semanais</option>
+                  <option value="anuais">Anuais</option>
+                  <option value="cargaHorariaAnual">Carga horaria anual</option>
+                </select>
+              </h3>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cargaAno1">1º ano:</label>
+                <input
+                  type="number"
+                  name="cargaAno1"
+                  id="cargaAno1"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="cargaAno2">2º ano:</label>
+                <input
+                  type="number"
+                  name="cargaAno2"
+                  id="cargaAno2"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="cargaAno3">3º ano:</label>
+                <input
+                  type="number"
+                  name="cargaAno3"
+                  id="cargaAno3"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="cargaAno4">4º ano:</label>
+                <input
+                  type="number"
+                  name="cargaAno4"
+                  id="cargaAno4"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="cargaAno5">5º ano:</label>
+                <input
+                  type="number"
+                  name="cargaAno5"
+                  id="cargaAno5"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <button
+                  class="btn btn-primary form-control"
+                  id="btnSalvarAula"
+                  type="button"
+                >
+                  Salvar Informações
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-user-edit"></i>
+            <h3>Estudos realizados</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="localEnsino">Local de ensino: </label>
+                <input
+                  type="text"
+                  name="localEnsino"
+                  id="localEnsino"
+                  class="form-control"
+                  placeholder="Digite o local de ensino"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="municipioEstudoRealizado">Município: </label>
+                <input
+                  type="text"
+                  name="municipioEstudoRealizado"
+                  id="municipioEstudoRealizado"
+                  class="form-control"
+                  placeholder="Digite o município"
+                />
+              </div>
+              <div class="form-group">
+                <label for="ufEstudoRealizado">UF: </label>
+                <input
+                  type="text"
+                  name="ufEstudoRealizado"
+                  id="ufEstudoRealizado"
+                  class="form-control"
+                  placeholder="Digite o UF"
+                />
+              </div>
+              <div class="form-group">
+                <label for="anoEstudoRealizado">Ano: </label>
+                <select
+                  name="anoEstudoRealizado"
+                  id="anoEstudoRealizado"
+                  class="form-control"
+                >
+                  <option value="" hidden>Selecione o ano</option>
+                  <option value="1">1º ano</option>
+                  <option value="2">2º ano</option>
+                  <option value="3">3º ano</option>
+                  <option value="4">4º ano</option>
+                  <option value="5">5º ano</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <button
+                  class="btn btn-primary form-control"
+                  id="btnSalvarEstudoRealizado"
+                  type="button"
+                >
+                  Salvar Informações
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button type="button" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Voltar
+          </button>
+          <button type="button" class="btn btn-primary" id="btnGerar">
+            <i class="fas fa-paper-plane"></i> Gerar Documento
+          </button>
+        </div>
+      </div>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.min.js"></script> <!--Serve para abrir um arquivo modelo-->
-<script src="https://unpkg.com/docxtemplater@3.30.1/build/docxtemplater.js"></script> <!--Serve para adicionar elementos em um documento word-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> <!--Serve para salvar o arquivo modificado-->
-<script src="../js/script.js"></script>
-</body></html>
+    <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.min.js"></script>
+    <!--Serve para abrir um arquivo modelo-->
+    <script src="https://unpkg.com/docxtemplater@3.30.1/build/docxtemplater.js"></script>
+    <!--Serve para adicionar elementos em um documento word-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!--Serve para salvar o arquivo modificado-->
+    <script src="../js/historico.js"></script>
+  </body>
+</html>
