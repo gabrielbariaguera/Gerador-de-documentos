@@ -84,7 +84,7 @@ function gerarHist() {
     console.log("Valor de tipoDoc:", tipoDoc);
     switch(tipoDoc) {
         case "hist":
-            modelo = "../../modelos/HISTORICO ESCOLAR.xlsx";
+            modelo = "../../modelos/HISTÓRICO ESCOLAR.docx";
             break;
         case "histTrans":
             modelo = "../../modelos/DECLARAÇÃO OFICIAL - TRANSFERÊNCIA.docx";
@@ -128,11 +128,11 @@ function gerarHist() {
                 data: data,
                 municipio: municipio,
                 uf: uf,
-                ano1a: anoInicio,
-                ano2a: anoInicio + 1,
-                ano3a: anoInicio + 2,
-                ano4a: anoInicio + 3,
-                ano5a: anoInicio + 4,
+                a1a: anoInicio,
+                a2a: anoInicio + 1,
+                a3a: anoInicio + 2,
+                a4a: anoInicio + 3,
+                a5a: anoInicio + 4,
                 
             });
             
