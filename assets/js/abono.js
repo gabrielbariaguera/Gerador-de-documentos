@@ -138,7 +138,8 @@ function gerarAbono() {
         rosineia: { nomeCompleto: "ROSINEIA FERREIRA LIMA", cod: "387", cargo: "MERENDEIRA" },
         sebastiao: { nomeCompleto: "SEBASTIÃO RAMALHO FILHO", cod: "", cargo: "" },
         suzimara: { nomeCompleto: "SUZIMARA DA SILVA", cod: "641", cargo: "SERVIÇOS GERAIS" },
-        luciana: {nomeCompleto: "LUCIANA ALVES DE OLIVEIRA", cod: "281", cargo: "PSICÓLOGA"}
+        luciana: {nomeCompleto: "LUCIANA ALVES DE OLIVEIRA", cod: "281", cargo: "PSICÓLOGA"},
+        maria: {nomeCompleto: "MARIA CLARA RODRIGUES ALVES", cod: "663", cargo: "AUXILIAR PEDAGÓGICO"}
         
     };
     
