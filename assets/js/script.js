@@ -50,7 +50,6 @@ function validarCampos() {
     console.log("Validando campos do formulário");
     
     const campos = {
-        "tipoDoc": "tipo de documento",
         "nomeAluno": "nome do aluno",
         "raAluno": "RA do aluno",
         "nascimento": "data de nascimento",
@@ -114,7 +113,6 @@ function gerarDec() {
         console.log("Botão alterado para estado de loading");
         
         // Coleta os dados do formulário
-    let tipodoc = document.getElementById("tipoDoc").value;
     let nomeAluno = document.getElementById("nomeAluno").value;
     let raAluno = document.getElementById("raAluno").value;
     let nascimento = document.getElementById("nascimento").value;
@@ -140,19 +138,7 @@ function gerarDec() {
     let emissorInfo = emissores[emissor];
 
     // Define o modelo baseado no tipo de documento
-    let modelo = "";
-    switch(tipodoc) {
-        case "declaEsc":
-            modelo = "../../modelos/DECLARAÇÃO OFICIAL - ESCOLARIDADE.docx";
-            break;
-        case "declaTransf":
-            modelo = "../../modelos/DECLARAÇÃO OFICIAL - TRANSFERÊNCIA.docx";
-            break;
-        default:
-            showToast("Tipo de documento inválido", "error");
-            resetarBotao();
-            return;
-    }
+    let modelo = "../../modelos/DECLARAÇÃO OFICIAL - TRANSFERÊNCIA.docx";
 
     // Função para resetar o botão
     function resetarBotao() {
