@@ -144,7 +144,25 @@ function gerarAbono() {
     };
     
     let funcionarioInfo = funcionarios[nomeFunc];
-
+    let dias = document.getElementById("diasDisp").value
+    let diasExtenso
+    switch(dias){
+        case "1":
+            diasExtenso = "um";
+            break;
+        case "2":  
+            diasExtenso = "dois";
+            break;  
+        case "3":   
+            diasExtenso = "três";
+            break; 
+        case "4":   
+            diasExtenso = "quatro";
+            break; 
+        case "5":   
+            diasExtenso= "cinco";
+            break; 
+    }
 
     // Define o modelo baseado no tipo de documento
     let modelo = "../modelos/MODELO - PEDIDO DISPENSA.docx"
@@ -181,7 +199,9 @@ function gerarAbono() {
                 nome: funcionarioInfo.nomeCompleto,
                 cod: funcionarioInfo.cod,
                 cargo: funcionarioInfo.cargo,
-                dataAbono: dataAbonoFormatada,
+                dataDispensa: dataAbonoFormatada,
+                dia: dias,
+                diaExtenso: diasExtenso,
                 data: data,
             });
             
