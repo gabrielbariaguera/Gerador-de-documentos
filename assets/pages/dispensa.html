@@ -60,58 +60,50 @@
         <!-- Conteúdo principal -->
         <div class="content">
             <div class="content-header">
-                <h2>Gerador de Declarações</h2>
+                <h2>Gerador de Dispensa</h2>
                 <p>Preencha os dados abaixo para gerar um novo documento</p>
             </div>
 
             <div class="card">
                 <div class="card-header">
-                    <i class="fas fa-file-alt"></i>
-                    <h3>Tipo de Documento</h3>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="tipoDoc"><i class="fas fa-file-alt"></i> Tipo de documento:</label>
-                        <select name="tipoDoc" id="tipoDoc" class="form-control">
-                            <option hidden selected>Selecione uma das opções</option>
-                            <option value="declaEsc">Declaração de escolaridade</option>
-                            <option value="declaTransf">Declaração de transferência</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
                     <i class="fas fa-user-graduate"></i>
-                    <h3>Dados do Aluno</h3>
+                    <h3>Dados do Funcionário</h3>
                 </div>
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group full-width">
-                            <label for="nomeAluno"><i class="fas fa-user"></i> Nome completo do aluno:</label>
-                            <input type="text" name="nomeAluno" id="nomeAluno" class="form-control" placeholder="Digite o nome completo">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="raAluno"><i class="fas fa-id-card"></i> RA do aluno:</label>
-                            <input type="text" name="raAluno" id="raAluno" class="form-control" placeholder="Digite o RA">
-                        </div>
-                        <div class="form-group">
-                            <label for="nascimento"><i class="fas fa-calendar-alt"></i> Data de nascimento:</label>
-                            <input type="date" name="nascimento" id="nascimento" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="serie">Série:</label>
-                            <select name="serie" id="serie" class="form-control">
-                                <option value="" hidden>Selecione a série do aluno</option>
-                                <option value="1º ano A">1º ano A</option>
-                                <option value="1º ano B">1º ano B</option>
-                                <option value="2º ano">2º ano</option>
-                                <option value="3º ano">3º ano</option>
-                                <option value="4º ano">4º ano</option>
-                                <option value="5º ano">5º ano</option>
+                            <label for="nomeFuncionario"><i class="fas fa-user"></i> Nome do funcionário:</label>
+                            <select name="nomeFuncionario" id="nomeFuncionario" class="form-control">
+                                <option value="" hidden>Selecione o funcionário</option>
+                                <option value="agnaldo">Agnaldo</option>
+                                <option value="aline">Aline</option>
+                                <option value="cacilda">Cacilda</option>
+                                <option value="carolina">Carolina</option>
+                                <option value="celia">Célia</option>
+                                <option value="claudiana">Claudiana</option>
+                                <option value="danieli">Danieli</option>
+                                <option value="eliad">Eliad</option>
+                                <option value="eliane">Eliane</option>
+                                <option value="elinety">Elinety</option>
+                                <option value="endagabi">Endagabi</option>
+                                <option value="gabriel">Gabriel</option>
+                                <option value="izabel">Izabel</option>
+                                <option value="julia">Júlia</option>
+                                <option value="marcia">Marcia</option>
+                                <option value="mariana">Mariana</option>
+                                <option value="mariei">Marinei</option>
+                                <option value="marisa">Marisa</option>
+                                <option value="marlei">Marlei</option>
+                                <option value="mathias">Mathias</option>
+                                <option value="neuci">Neuci</option>
+                                <option value="nisleia">Nisléia</option>
+                                <option value="rosana">Rosana</option>
+                                <option value="rosimar">Rosimar</option>
+                                <option value="rosineia">Rosineia</option>
+                                <option value="sebastiao">Sebastião</option>
+                                <option value="suzimara">Suzimara</option>
+                                <option value="luciana">Luciana</option>
+                                <option value="maria">Maria Clara</option>
                             </select>
                         </div>
                     </div>
@@ -121,15 +113,12 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fas fa-user-edit"></i>
-                    <h3>Emissor do Documento</h3>
+                    <h3>Informaçoes da dispensa</h3>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="emissor"><i class="fas fa-user-edit"></i> Responsável pela emissão:</label>
-                        <select name="emissor" id="emissor" class="form-control">
-                            <option value="#" hidden selected>Selecione uma das opções</option>
-                            <option value="julia">Julia</option>
-                            <option value="gabriel">Gabriel</option>
+                        <label for="dataDisp"><i class="fas fa-calendar-alt"></i> Data da dispensa:</label>
+                        <input type="date" name="dataDisp" id="dataDisp" class="form-control">
                         </select>
                     </div>
                 </div>
@@ -137,7 +126,7 @@
 
             <div class="action-bar">
                 <button type="button" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</button>
-                <button type="button" class="btn btn-primary" id="btnGerar"><i class="fas fa-paper-plane"></i> Gerar Documento</button>
+                <button type="button" class="btn btn-primary" id="btnGerarAbono"><i class="fas fa-paper-plane"></i> Gerar Documento</button>
             </div>
         </div>
     </div>
@@ -145,5 +134,5 @@
 <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.min.js"></script> <!--Serve para abrir um arquivo modelo-->
 <script src="https://unpkg.com/docxtemplater@3.30.1/build/docxtemplater.js"></script> <!--Serve para adicionar elementos em um documento word-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> <!--Serve para salvar o arquivo modificado-->
-<script src="../js/script.js"></script>
+<script type="module" src="../js/dispensa.js"></script>
 </body></html>
