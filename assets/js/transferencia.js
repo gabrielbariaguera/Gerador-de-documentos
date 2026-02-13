@@ -1,5 +1,3 @@
-// filepath: /Users/arielaio/Desktop/Projetos/Gerador-de-declaracoes/script.js
-
 // Função para exibir mensagens de notificação
 function showToast(message, type = 'success') {
     // Cria o container de toasts se não existir
