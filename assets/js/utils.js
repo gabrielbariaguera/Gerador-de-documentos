@@ -12,16 +12,13 @@ export const funcionarios = {
         carolina: { nomeCompleto: "CAROLINA CONSTANTINO BUENO", cod: "296", cargo: "PEB II" },
         celia: { nomeCompleto: "CÉLIA DO CARMO TOSTA", cod: "231", cargo: "INSPETOR DE ALUNO" },
         claudiana: { nomeCompleto: "CLAUDIANA DE JESUS MORAIS", cod: "626", cargo: "SERVIÇOS GERAIS" },
-        danieli: { nomeCompleto: "DANIELI RINARDI DA SILVEIRA", cod: "594", cargo: "PEB I" },
         eliad: { nomeCompleto: "ELIAD GARCIA RAMOS PRADO", cod: "298", cargo: "PEB I" },
         eliane: { nomeCompleto: "ELIANE CRISTINA DA COSTA", cod: "305", cargo: "PEB I" },
         elinety: { nomeCompleto: "ELINETY LOURENÇO DE SOUZA SANTOS", cod: "395", cargo: "SERVIÇOS GERAIS" },
         endagabi: { nomeCompleto: "ENDAGABI MUNIQUI DE OLIVEIRA FERNANDES", cod: "", cargo: "" },
-        gabriel: { nomeCompleto: "GABRIEL AGUERA BARIA", cod: "", cargo: "ESTAGIÁRIO" },
         izabel: { nomeCompleto: "IZABEL CRISTINA DE PAULA MARANGONI", cod: "620", cargo: "PEB I" },
         julia: { nomeCompleto: "JÚLIA DE LIMA BATISTA", cod: "654", cargo: "ESCRITURÁRIO I" },
         marcia: { nomeCompleto: "MARCIA CELESTINA RAMOS", cod: "", cargo: "" },
-        mariana: { nomeCompleto: "MARIANA FANTINI RIBEIRO", cod: "571", cargo: "PEB I" },
         marinei: { nomeCompleto: "MARINEI DE FÁTIMA ELOI FRANÇA", cod: "309", cargo: "PEB I" },
         marisa: { nomeCompleto: "MARISA FERNANDES", cod: "294", cargo: "MERENDEIRA" },
         marlei: { nomeCompleto: "MARLEI DE LIMA NANYA FELIPE", cod: "602", cargo: "PEB I" },
@@ -34,5 +31,7 @@ export const funcionarios = {
         sebastiao: { nomeCompleto: "SEBASTIÃO RAMALHO FILHO", cod: "", cargo: "" },
         suzimara: { nomeCompleto: "SUZIMARA DA SILVA", cod: "641", cargo: "SERVIÇOS GERAIS" },
         luciana: {nomeCompleto: "LUCIANA ALVES DE OLIVEIRA", cod: "281", cargo: "PSICÓLOGA"},
-        maria: {nomeCompleto: "MARIA CLARA RODRIGUES ALVES", cod: "663", cargo: "AUXILIAR PEDAGÓGICO"}
+        vania: {nomeCompleto: "VÂNIA PAULA DA SILVA RIBEIRO", cod: "277", cargo: "PEB II"},
+        claudineia: {nomeCompleto: "CLAUDINÉIA DA SILVA MORAIS", cod: "485", cargo: "AUXILIAR PEDAGÓGICO"},
+        francielle: {nomeCompleto: "FRANCIELLE PEREIRA DE OLIVEIRA", cod: "551", cargo: "SERVIÇOS GERAIS"}
 }
