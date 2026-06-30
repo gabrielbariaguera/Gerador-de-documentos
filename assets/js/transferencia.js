@@ -1,3 +1,5 @@
+import { formatarDataBr } from "./utils";
+
 // Função para exibir mensagens de notificação
 function showToast(message, type = 'success') {
     // Cria o container de toasts se não existir
@@ -82,13 +84,6 @@ function validarCampos() {
     
     console.log("Todos os campos validados com sucesso");
     return true;
-}
-
-// Formata data de YYYY-MM-DD para DD/MM/YYYY
-function formatarDataBr(nascimento) {
-    if (!nascimento) return '';
-    const [ano, mes, dia] = nascimento.split('-');
-    return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${ano}`;
 }
 
 // Função principal para gerar documentos

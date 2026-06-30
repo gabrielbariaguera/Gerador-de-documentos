@@ -20,7 +20,6 @@ export const funcionarios = {
         julia: { nomeCompleto: "JÚLIA DE LIMA BATISTA", cod: "654", cargo: "ESCRITURÁRIO I" },
         marcia: { nomeCompleto: "MARCIA CELESTINA RAMOS", cod: "", cargo: "" },
         marinei: { nomeCompleto: "MARINEI DE FÁTIMA ELOI FRANÇA", cod: "309", cargo: "PEB I" },
-        marisa: { nomeCompleto: "MARISA FERNANDES", cod: "294", cargo: "MERENDEIRA" },
         marlei: { nomeCompleto: "MARLEI DE LIMA NANYA FELIPE", cod: "602", cargo: "PEB I" },
         mathias: { nomeCompleto: "MATHIAS ROBERTO BATISTA", cod: "299", cargo: "PEB II" },
         neuci: { nomeCompleto: "NEUCI DIAS RODRIGUES", cod: "301", cargo: "PEB I" },
@@ -33,5 +32,6 @@ export const funcionarios = {
         luciana: {nomeCompleto: "LUCIANA ALVES DE OLIVEIRA", cod: "281", cargo: "PSICÓLOGA"},
         vania: {nomeCompleto: "VÂNIA PAULA DA SILVA RIBEIRO", cod: "277", cargo: "PEB II"},
         claudineia: {nomeCompleto: "CLAUDINÉIA DA SILVA MORAIS", cod: "485", cargo: "AUXILIAR PEDAGÓGICO"},
-        francielle: {nomeCompleto: "FRANCIELLE PEREIRA DE OLIVEIRA", cod: "551", cargo: "SERVIÇOS GERAIS"}
+        francielle: {nomeCompleto: "FRANCIELLE PEREIRA DE OLIVEIRA", cod: "551", cargo: "SERVIÇOS GERAIS"},
+        camila: {nomeCompleto: "CAMILA NUNES ANTONIASSI MOREIRA", cod: "492", cargo: "AUXILIAR PEDAGÓGICO"}
 }
