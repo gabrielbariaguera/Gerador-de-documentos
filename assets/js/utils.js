@@ -124,6 +124,18 @@ export function resetarFormulario(selector = '.form-control') {
 
 export function inicializarFormulario({ buttonId, onSubmit, onReset } = {}) {
     document.addEventListener('DOMContentLoaded', () => {
+        const content = document.querySelector('.content');
+        if (content) {
+            content.scrollTop = 0;
+        }
+        window.scrollTo(0, 0);
+        requestAnimationFrame(() => {
+            if (content) {
+                content.scrollTop = 0;
+            }
+            window.scrollTo(0, 0);
+        });
+
         const botao = document.getElementById(buttonId);
         if (botao) {
             botao.addEventListener('click', onSubmit);
