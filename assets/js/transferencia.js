@@ -35,7 +35,12 @@ function gerarTransferencia() {
         julia: {
             nome: "Julia de Lima Batista",
             cargo: "ESCRITUÁRIA"
+        },
+        thayna:{
+            nome: "Thayna Vitória Andrade Queiroz",
+            cargo: "ESTAGIÁRIA"
         }
+        
     };
 
     const emissorInfo = emissores[emissor];
