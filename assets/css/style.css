@@ -251,6 +251,16 @@ textarea {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.sidebar-footer a {
+    color: rgba(229, 238, 245, 0.78);
+    text-decoration: none;
+}
+
+.sidebar-footer a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
 .content {
     grid-area: content;
     overflow-y: auto;
