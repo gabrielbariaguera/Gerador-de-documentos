@@ -15,7 +15,14 @@ function criarBlocoAno(index) {
                     </div>
                     <div class="form-group">
                         <label for="serieAno_${index}">SÉRIE/ANO:</label>
-                        <input type="text" id="serieAno_${index}" class="form-control" placeholder="Ex.: 2º ano">
+                        <select id="serieAno_${index}" class="form-control">
+                            <option value="">Selecione</option>
+                            <option value="1º ano">1º ano</option>
+                            <option value="2º ano">2º ano</option>
+                            <option value="3º ano">3º ano</option>
+                            <option value="4º ano">4º ano</option>
+                            <option value="5º ano">5º ano</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-row">
@@ -37,97 +44,123 @@ function criarBlocoAno(index) {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="portugues_${index}">LP:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="portugues_${index}" class="form-control" placeholder="Ex.: 8.5">
+                        <input type="text" id="portugues_${index}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="matematica_${index}">MAT:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="matematica_${index}" class="form-control" placeholder="Ex.: 7.8">
+                        <input type="text" id="matematica_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="historia_${index}">HIS:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="historia_${index}" class="form-control" placeholder="Ex.: 9.0">
+                        <input type="text" id="historia_${index}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="geografia_${index}">GEO:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="geografia_${index}" class="form-control" placeholder="Ex.: 8.2">
+                        <input type="text" id="geografia_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="ciencias_${index}">CIE:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="ciencias_${index}" class="form-control" placeholder="Ex.: 8.7">
+                        <input type="text" id="ciencias_${index}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="arte_${index}">ARTE:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="arte_${index}" class="form-control" placeholder="Ex.: 8.5">
+                        <input type="text" id="arte_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="educacaoFisica_${index}">EDF:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="educacaoFisica_${index}" class="form-control" placeholder="Ex.: 9.0">
+                        <input type="text" id="educacaoFisica_${index}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="ingles_${index}">ING:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="ingles_${index}" class="form-control" placeholder="Ex.: 8.3">
+                        <input type="text" id="ingles_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="producaoTexto_${index}">PT:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="producaoTexto_${index}" class="form-control" placeholder="Ex.: 8.8">
+                        <input type="text" id="producaoTexto_${index}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="orientacaoEstudos_${index}">OE:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="orientacaoEstudos_${index}" class="form-control" placeholder="Ex.: 8.6">
+                        <input type="text" id="orientacaoEstudos_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="orientacaoEstudosMat_${index}">OEM:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="orientacaoEstudosMat_${index}" class="form-control" placeholder="Ex.: 8.6">
+                        <input type="text" id="orientacaoEstudosMat_${index}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="assembleia_${index}">ASS:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="assembleia_${index}" class="form-control" placeholder="Ex.: 8.7">
+                        <input type="text" id="assembleia_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="projetoConvivencia_${index}">PC:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="projetoConvivencia_${index}" class="form-control" placeholder="Ex.: 9.1">
+                        <input type="text" id="projetoConvivencia_${index}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="experienciaMatematica_${index}">EM:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="experienciaMatematica_${index}" class="form-control" placeholder="Ex.: 8.8">
+                        <input type="text" id="experienciaMatematica_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="praticasExperimentais_${index}">PE:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="praticasExperimentais_${index}" class="form-control" placeholder="Ex.: 8.9">
+                        <input type="text" id="praticasExperimentais_${index}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="tecnologiaInovacao_${index}">TI:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="tecnologiaInovacao_${index}" class="form-control" placeholder="Ex.: 8.4">
+                        <input type="text" id="tecnologiaInovacao_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="linguagensArtisticas_${index}">LA:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="linguagensArtisticas_${index}" class="form-control" placeholder="Ex.: 8.6">
+                        <input type="text" id="linguagensArtisticas_${index}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="educacaoSocioemocional_${index}">ES:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="educacaoSocioemocional_${index}" class="form-control" placeholder="Ex.: 8.7">
+                        <input type="text" id="educacaoSocioemocional_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="culturaMovimento_${index}">CM:</label>
-                        <input type="number" step="0.1" min="0" max="10" id="culturaMovimento_${index}" class="form-control" placeholder="Ex.: 8.5">
+                        <input type="text" id="culturaMovimento_${index}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="aulasBaseComum_${index}">TOTAL DE AULAS BASE COMUM:</label>
+                        <input type="text" id="aulasBaseComum_${index}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="aulasDiversificada_${index}">TOTAL DE AULAS DIVERSIFICADA:</label>
+                        <input type="text" id="aulasDiversificada_${index}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="aulasSemanais_${index}">TOTAL DE AULAS SEMANAIS:</label>
+                        <input type="text" id="aulasSemanais_${index}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="aulasAnuais_${index}">TOTAL DE AULAS ANUAIS:</label>
+                        <input type="text" id="aulasAnuais_${index}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cargaHorariaAnual_${index}">TOTAL DA CARGA HORÁRIA ANUAL:</label>
+                        <input type="text" id="cargaHorariaAnual_${index}" class="form-control">
                     </div>
                 </div>
             </div>
@@ -170,7 +203,12 @@ function coletarAnosLetivos() {
             linguagensArtisticas: document.getElementById(`linguagensArtisticas_${index}`)?.value.trim() || '',
             educacaoSocioemocional: document.getElementById(`educacaoSocioemocional_${index}`)?.value.trim() || '',
             experienciaMatematica: document.getElementById(`experienciaMatematica_${index}`)?.value.trim() || '',
-            culturaMovimento: document.getElementById(`culturaMovimento_${index}`)?.value.trim() || ''
+            culturaMovimento: document.getElementById(`culturaMovimento_${index}`)?.value.trim() || '',
+            aulasBaseComum: document.getElementById(`aulasBaseComum_${index}`)?.value.trim() || '',
+            aulasDiversificada: document.getElementById(`aulasDiversificada_${index}`)?.value.trim() || '',
+            aulasSemanais: document.getElementById(`aulasSemanais_${index}`)?.value.trim() || '',
+            aulasAnuais: document.getElementById(`aulasAnuais_${index}`)?.value.trim() || '',
+            cargaHorariaAnual: document.getElementById(`cargaHorariaAnual_${index}`)?.value.trim() || ''
         };
         anos.push(ano);
     });
@@ -203,7 +241,12 @@ function preencherPlaceholdersPorAno(dados, numero, ano) {
         linguagensArtisticas: [`laAl${numero}`, `laA${numero}`],
         educacaoSocioemocional: [`es${numero}`, `esA${numero}`],
         experienciaMatematica: [`em${numero}`, `emA${numero}`],
-        culturaMovimento: [`cm${numero}`]
+        culturaMovimento: [`cm${numero}`],
+        aulasBaseComum: [`bc${numero}`],
+        aulasDiversificada: [`dv${numero}`],
+        aulasSemanais: [`as${numero}`],
+        aulasAnuais: [`an${numero}`],
+        cargaHorariaAnual: [`ha${numero}`]
     };
 
     const valores = {
@@ -230,7 +273,12 @@ function preencherPlaceholdersPorAno(dados, numero, ano) {
         linguagensArtisticas: ano.linguagensArtisticas,
         educacaoSocioemocional: ano.educacaoSocioemocional,
         experienciaMatematica: ano.experienciaMatematica,
-        culturaMovimento: ano.culturaMovimento
+        culturaMovimento: ano.culturaMovimento,
+        aulasBaseComum: ano.aulasBaseComum,
+        aulasDiversificada: ano.aulasDiversificada,
+        aulasSemanais: ano.aulasSemanais,
+        aulasAnuais: ano.aulasAnuais,
+        cargaHorariaAnual: ano.cargaHorariaAnual
     };
 
     Object.entries(aliases).forEach(([chave, placeholders]) => {
