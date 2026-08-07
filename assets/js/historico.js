@@ -322,7 +322,7 @@ function gerarHistorico() {
         dataNascimento: formatarDataBr(dataNascimento),
         municipioNascimento,
         ufNascimento,
-        data: new Date().toLocaleDateString('pt-BR')
+        dataAtual: new Date().toLocaleDateString('pt-BR')
     };
 
     anosLetivos.forEach((ano, index) => {
