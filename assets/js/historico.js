@@ -1,5 +1,103 @@
 import { formatarDataBr, showToast, validarCampos, setBotaoLoading, inicializarFormulario, gerarDocumentoDocx } from "./utils.js";
 
+const MODELOS_HISTORICO = {
+    padrao: {
+        arquivo: '../../modelos/HISTÓRICO ESCOLAR.docx',
+        prefixoArquivo: 'historico'
+    },
+    transferencia: {
+        arquivo: '../../modelos/HISTÓRICO ESCOLAR TRANSF.docx',
+        prefixoArquivo: 'historico-transf'
+    }
+};
+
+const DISCIPLINAS_TRANSFERENCIA = [
+    { prefix: 'lp', label: 'Língua Portuguesa' },
+    { prefix: 'm', label: 'Matemática' },
+    { prefix: 'h', label: 'História' },
+    { prefix: 'g', label: 'Geografia' },
+    { prefix: 'c', label: 'Ciências' },
+    { prefix: 'a', label: 'Arte' },
+    { prefix: 'ef', label: 'Educação Física' },
+    { prefix: 'li', label: 'Inglês' },
+    { prefix: 'pt', label: 'Produção de Texto' },
+    { prefix: 'oe', label: 'Orientação de Estudos' },
+    { prefix: 'oem', label: 'Orientação de Estudos (Mat.)' },
+    { prefix: 'ass', label: 'Assembleia' },
+    { prefix: 'pc', label: 'Projeto Convivência' },
+    { prefix: 'pe', label: 'Práticas Experimentais' },
+    { prefix: 'ti', label: 'Tecnologia e Inovação' },
+    { prefix: 'cm', label: 'Cultura e Movimento' },
+    { prefix: 'la', label: 'Linguagens Artísticas' }
+];
+
+function isModeloTransferencia() {
+    return document.getElementById('modeloHistorico')?.value === 'transferencia';
+}
+
+function alternarCamposTransferencia() {
+    const container = document.getElementById('camposTransferencia');
+    if (!container) return;
+
+    container.hidden = !isModeloTransferencia();
+}
+
+function criarCamposNotasBimestrais() {
+    const container = document.getElementById('notasBimestraisContainer');
+    if (!container || container.children.length > 0) {
+        return;
+    }
+
+    const bimestres = ['B1', 'B2', 'B3', 'B4', 'F'];
+    container.innerHTML = DISCIPLINAS_TRANSFERENCIA.map(({ prefix, label }) => {
+        const campos = bimestres.map((bimestre) => {
+            const id = `${prefix}${bimestre}`;
+            return `
+                <div class="form-group">
+                    <label for="${id}">${bimestre}:</label>
+                    <input type="text" name="${id}" id="${id}" class="form-control">
+                </div>
+            `;
+        }).join('');
+
+        return `
+            <div class="card" style="margin-bottom: 14px; border: 1px dashed rgba(15, 118, 110, 0.12);">
+                <div class="card-header" style="padding: 12px 16px;">
+                    <strong>${label}</strong>
+                </div>
+                <div class="card-body" style="padding: 12px 16px;">
+                    <div class="form-row">
+                        ${campos}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function coletarCamposTransferencia() {
+    const dados = {
+        anoAtual: document.getElementById('anoAtual')?.value.trim() || '',
+        dataSaida: formatarDataBr(document.getElementById('dataSaida')?.value || '')
+    };
+
+    DISCIPLINAS_TRANSFERENCIA.forEach(({ prefix }) => {
+        ['B1', 'B2', 'B3', 'B4', 'F'].forEach((bimestre) => {
+            const id = `${prefix}${bimestre}`;
+            dados[id] = document.getElementById(id)?.value.trim() || '';
+        });
+    });
+
+    return dados;
+}
+
+function obterCamposObrigatoriosTransferencia() {
+    return {
+        anoAtual: 'série de saída',
+        dataSaida: 'data de saída'
+    };
+}
+
 function criarBlocoAno(index) {
     return `
         <div class="card" style="margin-bottom: 14px; border: 1px dashed rgba(15, 118, 110, 0.28);">
@@ -43,97 +141,97 @@ function criarBlocoAno(index) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="portugues_${index}">LP:</label>
+                        <label for="portugues_${index}">Língua Portuguesa:</label>
                         <input type="text" id="portugues_${index}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="matematica_${index}">MAT:</label>
+                        <label for="matematica_${index}">Matemática:</label>
                         <input type="text" id="matematica_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="historia_${index}">HIS:</label>
+                        <label for="historia_${index}">História:</label>
                         <input type="text" id="historia_${index}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="geografia_${index}">GEO:</label>
+                        <label for="geografia_${index}">Geografia:</label>
                         <input type="text" id="geografia_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="ciencias_${index}">CIE:</label>
+                        <label for="ciencias_${index}">Ciências:</label>
                         <input type="text" id="ciencias_${index}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="arte_${index}">ARTE:</label>
+                        <label for="arte_${index}">Arte:</label>
                         <input type="text" id="arte_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="educacaoFisica_${index}">EDF:</label>
+                        <label for="educacaoFisica_${index}">Educação Física:</label>
                         <input type="text" id="educacaoFisica_${index}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="ingles_${index}">ING:</label>
+                        <label for="ingles_${index}">Inglês:</label>
                         <input type="text" id="ingles_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="producaoTexto_${index}">PT:</label>
+                        <label for="producaoTexto_${index}">Produção de Texto:</label>
                         <input type="text" id="producaoTexto_${index}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="orientacaoEstudos_${index}">OE:</label>
+                        <label for="orientacaoEstudos_${index}">Orientação de Estudos:</label>
                         <input type="text" id="orientacaoEstudos_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="orientacaoEstudosMat_${index}">OEM:</label>
+                        <label for="orientacaoEstudosMat_${index}">Orientação de Estudos (Mat.):</label>
                         <input type="text" id="orientacaoEstudosMat_${index}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="assembleia_${index}">ASS:</label>
+                        <label for="assembleia_${index}">Assembleia:</label>
                         <input type="text" id="assembleia_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="projetoConvivencia_${index}">PC:</label>
+                        <label for="projetoConvivencia_${index}">Projeto Convivência:</label>
                         <input type="text" id="projetoConvivencia_${index}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="experienciaMatematica_${index}">EM:</label>
+                        <label for="experienciaMatematica_${index}">Experiência Matemática:</label>
                         <input type="text" id="experienciaMatematica_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="praticasExperimentais_${index}">PE:</label>
+                        <label for="praticasExperimentais_${index}">Práticas Experimentais:</label>
                         <input type="text" id="praticasExperimentais_${index}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="tecnologiaInovacao_${index}">TI:</label>
+                        <label for="tecnologiaInovacao_${index}">Tecnologia e Inovação:</label>
                         <input type="text" id="tecnologiaInovacao_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="linguagensArtisticas_${index}">LA:</label>
+                        <label for="linguagensArtisticas_${index}">Linguagens Artísticas:</label>
                         <input type="text" id="linguagensArtisticas_${index}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="educacaoSocioemocional_${index}">ES:</label>
+                        <label for="educacaoSocioemocional_${index}">Educação Socioemocional:</label>
                         <input type="text" id="educacaoSocioemocional_${index}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="culturaMovimento_${index}">CM:</label>
+                        <label for="culturaMovimento_${index}">Cultura e Movimento:</label>
                         <input type="text" id="culturaMovimento_${index}" class="form-control">
                     </div>
                 </div>
@@ -297,6 +395,10 @@ function gerarHistorico() {
         ufNascimento: "UF de nascimento"
     };
 
+    if (isModeloTransferencia()) {
+        Object.assign(campos, obterCamposObrigatoriosTransferencia());
+    }
+
     if (!validarCampos(campos)) {
         return;
     }
@@ -315,6 +417,8 @@ function gerarHistorico() {
     const dataNascimento = document.getElementById('dataNascimento').value;
     const municipioNascimento = document.getElementById('municipioNascimento').value.trim();
     const ufNascimento = document.getElementById('ufNascimento').value.trim();
+    const modeloSelecionado = document.getElementById('modeloHistorico').value;
+    const modelo = MODELOS_HISTORICO[modeloSelecionado] || MODELOS_HISTORICO.padrao;
 
     const dados = {
         nomeAluno,
@@ -325,15 +429,19 @@ function gerarHistorico() {
         dataAtual: new Date().toLocaleDateString('pt-BR')
     };
 
+    if (isModeloTransferencia()) {
+        Object.assign(dados, coletarCamposTransferencia());
+    }
+
     anosLetivos.forEach((ano, index) => {
         const numero = index + 1;
         preencherPlaceholdersPorAno(dados, numero, ano);
     });
 
     gerarDocumentoDocx({
-        modeloRelativo: '../../modelos/HISTÓRICO ESCOLAR.docx',
+        modeloRelativo: modelo.arquivo,
         dados,
-        outputName: `historico-${nomeAluno}.docx`
+        outputName: `${modelo.prefixoArquivo}-${nomeAluno}.docx`
     })
         .catch((error) => {
             console.error('Erro ao gerar histórico escolar:', error);
@@ -345,6 +453,14 @@ function gerarHistorico() {
 
 function inicializarHistorico() {
     const container = document.getElementById('anosLetivosContainer');
+    const selectModelo = document.getElementById('modeloHistorico');
+
+    criarCamposNotasBimestrais();
+    alternarCamposTransferencia();
+
+    if (selectModelo) {
+        selectModelo.addEventListener('change', alternarCamposTransferencia);
+    }
 
     if (container) {
         container.innerHTML = '';
@@ -356,7 +472,8 @@ function inicializarHistorico() {
 
 inicializarFormulario({
     buttonId: 'btnGerarHistorico',
-    onSubmit: gerarHistorico
+    onSubmit: gerarHistorico,
+    onReset: alternarCamposTransferencia
 });
 
 inicializarHistorico();
