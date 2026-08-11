@@ -11,6 +11,14 @@ const MODELOS_HISTORICO = {
     }
 };
 
+const TOTAIS_AULAS_PADRAO = {
+    aulasBaseComum: '26',
+    aulasDiversificada: '12',
+    aulasSemanais: '38',
+    aulasAnuais: '1520',
+    cargaHorariaAnual: '1140'
+};
+
 const DISCIPLINAS_TRANSFERENCIA = [
     { prefix: 'lp', label: 'Língua Portuguesa' },
     { prefix: 'm', label: 'Matemática' },
@@ -96,6 +104,47 @@ function obterCamposObrigatoriosTransferencia() {
         anoAtual: 'série de saída',
         dataSaida: 'data de saída'
     };
+}
+
+function alternarCamposTotaisAulas(index) {
+    const select = document.getElementById(`tipoTotaisAulas_${index}`);
+    const manual = document.getElementById(`totaisAulasManual_${index}`);
+    if (!select || !manual) return;
+
+    manual.hidden = select.value !== 'outros';
+}
+
+function configurarTotaisAulasAno(index) {
+    const select = document.getElementById(`tipoTotaisAulas_${index}`);
+    if (!select) return;
+
+    select.addEventListener('change', () => alternarCamposTotaisAulas(index));
+    alternarCamposTotaisAulas(index);
+}
+
+function obterTotaisAulas(index) {
+    const select = document.getElementById(`tipoTotaisAulas_${index}`);
+
+    if (select?.value === 'padrao') {
+        return { ...TOTAIS_AULAS_PADRAO };
+    }
+
+    return {
+        aulasBaseComum: document.getElementById(`aulasBaseComum_${index}`)?.value.trim() || '',
+        aulasDiversificada: document.getElementById(`aulasDiversificada_${index}`)?.value.trim() || '',
+        aulasSemanais: document.getElementById(`aulasSemanais_${index}`)?.value.trim() || '',
+        aulasAnuais: document.getElementById(`aulasAnuais_${index}`)?.value.trim() || '',
+        cargaHorariaAnual: document.getElementById(`cargaHorariaAnual_${index}`)?.value.trim() || ''
+    };
+}
+
+function alternarTodosCamposTotaisAulas() {
+    const container = document.getElementById('anosLetivosContainer');
+    if (!container) return;
+
+    Array.from(container.children).forEach((_, index) => {
+        alternarCamposTotaisAulas(index);
+    });
 }
 
 function criarBlocoAno(index) {
@@ -236,29 +285,40 @@ function criarBlocoAno(index) {
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label for="aulasBaseComum_${index}">TOTAL DE AULAS BASE COMUM:</label>
-                        <input type="text" id="aulasBaseComum_${index}" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="aulasDiversificada_${index}">TOTAL DE AULAS DIVERSIFICADA:</label>
-                        <input type="text" id="aulasDiversificada_${index}" class="form-control">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="aulasSemanais_${index}">TOTAL DE AULAS SEMANAIS:</label>
-                        <input type="text" id="aulasSemanais_${index}" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="aulasAnuais_${index}">TOTAL DE AULAS ANUAIS:</label>
-                        <input type="text" id="aulasAnuais_${index}" class="form-control">
+                    <div class="form-group full-width">
+                        <label for="tipoTotaisAulas_${index}">TOTAIS DE AULAS:</label>
+                        <select id="tipoTotaisAulas_${index}" class="form-control">
+                            <option value="padrao">Ano letivo 2021 - 2026</option>
+                            <option value="outros">Outros</option>
+                        </select>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="cargaHorariaAnual_${index}">TOTAL DA CARGA HORÁRIA ANUAL:</label>
-                        <input type="text" id="cargaHorariaAnual_${index}" class="form-control">
+                <div id="totaisAulasManual_${index}" hidden>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="aulasBaseComum_${index}">Total de aulas da base comum:</label>
+                            <input type="text" id="aulasBaseComum_${index}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="aulasDiversificada_${index}">Total de aulas da parte diversificada:</label>
+                            <input type="text" id="aulasDiversificada_${index}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="aulasSemanais_${index}">Total de aulas semanais:</label>
+                            <input type="text" id="aulasSemanais_${index}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="aulasAnuais_${index}">Total de aulas anuais:</label>
+                            <input type="text" id="aulasAnuais_${index}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cargaHorariaAnual_${index}">Total da carga horária anual:</label>
+                            <input type="text" id="cargaHorariaAnual_${index}" class="form-control">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -270,6 +330,7 @@ function adicionarAnoLetivo(container, index = container.children.length) {
     const bloco = document.createElement('div');
     bloco.innerHTML = criarBlocoAno(index);
     container.appendChild(bloco.firstElementChild);
+    configurarTotaisAulasAno(index);
 }
 
 function coletarAnosLetivos() {
@@ -302,11 +363,7 @@ function coletarAnosLetivos() {
             educacaoSocioemocional: document.getElementById(`educacaoSocioemocional_${index}`)?.value.trim() || '',
             experienciaMatematica: document.getElementById(`experienciaMatematica_${index}`)?.value.trim() || '',
             culturaMovimento: document.getElementById(`culturaMovimento_${index}`)?.value.trim() || '',
-            aulasBaseComum: document.getElementById(`aulasBaseComum_${index}`)?.value.trim() || '',
-            aulasDiversificada: document.getElementById(`aulasDiversificada_${index}`)?.value.trim() || '',
-            aulasSemanais: document.getElementById(`aulasSemanais_${index}`)?.value.trim() || '',
-            aulasAnuais: document.getElementById(`aulasAnuais_${index}`)?.value.trim() || '',
-            cargaHorariaAnual: document.getElementById(`cargaHorariaAnual_${index}`)?.value.trim() || ''
+            ...obterTotaisAulas(index)
         };
         anos.push(ano);
     });
@@ -473,7 +530,10 @@ function inicializarHistorico() {
 inicializarFormulario({
     buttonId: 'btnGerarHistorico',
     onSubmit: gerarHistorico,
-    onReset: alternarCamposTransferencia
+    onReset: () => {
+        alternarCamposTransferencia();
+        alternarTodosCamposTotaisAulas();
+    }
 });
 
 inicializarHistorico();

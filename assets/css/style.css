@@ -448,6 +448,71 @@ label i {
     pointer-events: auto;
 }
 
+.extras-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.extras-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px;
+}
+
+.extras-item-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.extras-item-info > i {
+    font-size: 28px;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.extras-item-info strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.extras-item-info span {
+    display: block;
+    color: var(--text-light);
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.extras-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-light);
+}
+
+.extras-empty i {
+    font-size: 36px;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .extras-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .extras-download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
