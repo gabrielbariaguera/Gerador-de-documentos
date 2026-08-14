@@ -5,6 +5,17 @@ export function formatarDataBr(data) {
     return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${ano}`;
 }
 
+const MESES_EXTENSO = [
+    "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+    "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+];
+
+export function formatarDataPorExtenso(data = new Date()) {
+    const dataObj = data instanceof Date ? data : new Date(`${data}T00:00`);
+    if (Number.isNaN(dataObj.getTime())) return '';
+    return `${dataObj.getDate()} de ${MESES_EXTENSO[dataObj.getMonth()]} de ${dataObj.getFullYear()}`;
+}
+
 export const funcionarios = {
     agnaldo: { nomeCompleto: "AGNALDO MAURICIO DA SILVA", cod: "633", cargo: "SERVIÇOS GERAIS" },
     aline: { nomeCompleto: "ALINE ROSSI ROMERO", cod: "377", cargo: "ASSISTENTE SOCIAL" },

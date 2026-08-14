@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Geração de Documentos</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <div class="app-title">
+                <i class="fas fa-file-signature"></i>
+                <h1>Sistema de Documentos</h1>
+            </div>
+            <div class="app-toolbar"></div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-tasks"></i>
+                <span>Menu</span>
+            </div>
+            <ul class="sidebar-menu">
+                <a href="../../index.html">
+                    <li><i class="fas fa-file-alt"></i>Transferência</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="abonadas.html">
+                    <li><i class="fas fa-file-alt"></i>Abonada</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="dispensa.html">
+                    <li><i class="fas fa-file-alt"></i>Dispensa</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="historico.html">
+                    <li><i class="fas fa-file-alt"></i>Histórico Escolar</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="#">
+                    <li class="active"><i class="fas fa-file-alt"></i>Matrícula</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="extras.html">
+                    <li><i class="fas fa-folder-open"></i>Documentos Extras</li>
+                </a>
+            </ul>
+            <div class="sidebar-footer">
+                <span>v2.0.0 - <a href="https://github.com/gabrielbariaguera" target="_blank" rel="noopener noreferrer">Gabriel Aguera Baria</a></span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="content-header">
+                <h2>Gerador de Ficha de Matrícula</h2>
+                <p>Preencha os dados abaixo para gerar a ficha cadastral de matrícula em Word</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Dados do aluno</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="nomeAluno"><i class="fas fa-user"></i> Nome do aluno:</label>
+                            <input type="text" name="nomeAluno" id="nomeAluno" class="form-control" placeholder="Digite o nome completo">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rmAluno"><i class="fas fa-hashtag"></i> RM:</label>
+                            <input type="text" name="rmAluno" id="rmAluno" class="form-control" placeholder="Digite o RM">
+                        </div>
+                        <div class="form-group">
+                            <label for="generoAluno"><i class="fas fa-venus-mars"></i> Gênero:</label>
+                            <select name="generoAluno" id="generoAluno" class="form-control">
+                                <option value="" hidden>Selecione</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nascimentoAluno"><i class="fas fa-calendar-alt"></i> Data de nascimento:</label>
+                            <input type="date" name="nascimentoAluno" id="nascimentoAluno" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="cpfAluno"><i class="fas fa-id-card"></i> CPF:</label>
+                            <input type="text" name="cpfAluno" id="cpfAluno" class="form-control" placeholder="Digite o CPF">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="raAluno"><i class="fas fa-id-card"></i> RA:</label>
+                            <input type="text" name="raAluno" id="raAluno" class="form-control" placeholder="Digite o RA">
+                        </div>
+                        <div class="form-group">
+                            <label for="nacionalidadeAluno"><i class="fas fa-flag"></i> Nacionalidade:</label>
+                            <input type="text" name="nacionalidadeAluno" id="nacionalidadeAluno" class="form-control" placeholder="Ex.: Brasileira">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="naturalidadeAluno"><i class="fas fa-map-marker-alt"></i> Naturalidade:</label>
+                            <input type="text" name="naturalidadeAluno" id="naturalidadeAluno" class="form-control" placeholder="Digite a naturalidade">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Certidão</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tipoCertidao"><i class="fas fa-copy"></i> Tipo da certidão:</label>
+                            <select name="tipoCertidao" id="tipoCertidao" class="form-control">
+                                <option value="" hidden>Selecione</option>
+                                <option value="nova">Nova</option>
+                                <option value="antiga">Antiga</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="matriculaCertidao"><i class="fas fa-barcode"></i> Nº de matrícula da certidão:</label>
+                            <input type="text" name="matriculaCertidao" id="matriculaCertidao" class="form-control" placeholder="Digite o número de matrícula">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-users"></i>
+                    <h3>Filiação</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="maeAluno"><i class="fas fa-female"></i> Nome da mãe:</label>
+                            <input type="text" name="maeAluno" id="maeAluno" class="form-control" placeholder="Digite o nome da mãe">
+                        </div>
+                        <div class="form-group">
+                            <label for="telMae"><i class="fas fa-phone"></i> Telefone da mãe:</label>
+                            <input type="text" name="telMae" id="telMae" class="form-control" placeholder="Digite o telefone">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="paiAluno"><i class="fas fa-male"></i> Nome do pai:</label>
+                            <input type="text" name="paiAluno" id="paiAluno" class="form-control" placeholder="Digite o nome do pai">
+                        </div>
+                        <div class="form-group">
+                            <label for="telPai"><i class="fas fa-phone"></i> Telefone do pai:</label>
+                            <input type="text" name="telPai" id="telPai" class="form-control" placeholder="Digite o telefone">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-home"></i>
+                    <h3>Residência e transporte</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ruaAluno"><i class="fas fa-road"></i> Rua:</label>
+                            <input type="text" name="ruaAluno" id="ruaAluno" class="form-control" placeholder="Digite a rua">
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroCasaAluno"><i class="fas fa-hashtag"></i> Nº:</label>
+                            <input type="text" name="numeroCasaAluno" id="numeroCasaAluno" class="form-control" placeholder="Número">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bairroAluno"><i class="fas fa-map"></i> Bairro:</label>
+                            <input type="text" name="bairroAluno" id="bairroAluno" class="form-control" placeholder="Digite o bairro">
+                        </div>
+                        <div class="form-group">
+                            <label for="transporte"><i class="fas fa-bus"></i> Transporte:</label>
+                            <select name="transporte" id="transporte" class="form-control">
+                                <option value="" hidden>Selecione</option>
+                                <option value="sim">Sim</option>
+                                <option value="nao">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-notes-medical"></i>
+                    <h3>Informações adicionais</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="atendimentoEspecial"><i class="fas fa-wheelchair"></i> Necessita de atendimento especial:</label>
+                            <select name="atendimentoEspecial" id="atendimentoEspecial" class="form-control">
+                                <option value="" hidden>Selecione</option>
+                                <option value="sim">Sim</option>
+                                <option value="nao">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="campoCid" hidden>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="cidAluno"><i class="fas fa-file-medical"></i> CID:</label>
+                                <input type="text" name="cidAluno" id="cidAluno" class="form-control" placeholder="Digite o CID">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="restricaoAlimentar"><i class="fas fa-utensils"></i> Restrição alimentar:</label>
+                            <select name="restricaoAlimentar" id="restricaoAlimentar" class="form-control">
+                                <option value="" hidden>Selecione</option>
+                                <option value="sim">Sim</option>
+                                <option value="nao">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="campoRestricao" hidden>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="resAlimentar"><i class="fas fa-exclamation-circle"></i> Qual:</label>
+                                <input type="text" name="resAlimentar" id="resAlimentar" class="form-control" placeholder="Descreva a restrição alimentar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-school"></i>
+                    <h3>Procedência do aluno</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="escolaAntiga"><i class="fas fa-university"></i> Escola:</label>
+                            <input type="text" name="escolaAntiga" id="escolaAntiga" class="form-control" placeholder="Digite a escola de procedência">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cidadeEscolaAntiga"><i class="fas fa-city"></i> Município:</label>
+                            <input type="text" name="cidadeEscolaAntiga" id="cidadeEscolaAntiga" class="form-control" placeholder="Digite o município">
+                        </div>
+                        <div class="form-group">
+                            <label for="ufEscolaAntiga"><i class="fas fa-globe"></i> UF:</label>
+                            <input type="text" name="ufEscolaAntiga" id="ufEscolaAntiga" class="form-control" placeholder="Ex.: SP">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button type="button" class="btn btn-secondary"><i class="fas fa-eraser"></i> Limpar campos</button>
+                <button type="button" class="btn btn-primary" id="btnGerarMatricula"><i class="fas fa-paper-plane"></i> Gerar Documento</button>
+            </div>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.min.js"></script>
+<script src="https://unpkg.com/docxtemplater@3.30.1/build/docxtemplater.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script type="module" src="../js/matricula.js"></script>
+</body>
+</html>
