@@ -3,8 +3,26 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
+function carregarEnv() {
+    const envPath = path.join(__dirname, '.env');
+    if (!fs.existsSync(envPath)) return;
+    for (const linha of fs.readFileSync(envPath, 'utf8').split(/\r?\n/)) {
+        const texto = linha.trim();
+        if (!texto || texto.startsWith('#')) continue;
+        const separador = texto.indexOf('=');
+        if (separador === -1) continue;
+        const chave = texto.slice(0, separador).trim();
+        const valor = texto.slice(separador + 1).trim().replace(/^["']|["']$/g, '');
+        if (chave && process.env[chave] === undefined) {
+            process.env[chave] = valor;
+        }
+    }
+}
+
+carregarEnv();
+
 const PORT = 8000;
-const API_ORIGIN = 'https://docsemef.onrender.com';
+const API_ORIGIN = (process.env.API_ORIGIN || '').replace(/\/$/, '');
 const ROOT = __dirname;
 
 const MIME = {
@@ -35,13 +53,22 @@ function proxyApi(req, res) {
         return;
     }
 
+    if (!API_ORIGIN) {
+        res.writeHead(500, { 'Content-Type': 'application/json', ...corsHeaders() });
+        res.end(JSON.stringify({
+            message: 'API_ORIGIN não configurada. Copie .env.example para .env e informe a URL da API.'
+        }));
+        return;
+    }
+
     const target = new URL(req.url.replace(/^\/api/, '') || '/', API_ORIGIN);
     const headers = { ...req.headers, host: target.host };
     delete headers['connection'];
+    const cliente = target.protocol === 'http:' ? http : https;
 
-    const proxyReq = https.request({
+    const proxyReq = cliente.request({
         hostname: target.hostname,
-        port: 443,
+        port: target.port || (target.protocol === 'http:' ? 80 : 443),
         path: target.pathname + target.search,
         method: req.method,
         headers
@@ -91,5 +118,6 @@ http.createServer((req, res) => {
     }
     servirArquivo(req, res);
 }).listen(PORT, () => {
-    console.log(`Servidor em http://localhost:${PORT} (API via /api)`);
+    const apiInfo = API_ORIGIN ? 'API via /api' : 'defina API_ORIGIN no .env';
+    console.log(`Servidor em http://localhost:${PORT} (${apiInfo})`);
 });

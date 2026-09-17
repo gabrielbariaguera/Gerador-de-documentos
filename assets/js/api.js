@@ -1,7 +1,5 @@
-const local = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-
 export const api = axios.create({
-    baseURL: local ? `${window.location.origin}/api` : 'https://docsemef.onrender.com'
+    baseURL: `${window.location.origin}/api`
 });
 
 export function mensagemErroApi(error) {
