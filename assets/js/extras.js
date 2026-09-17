@@ -1,6 +1,6 @@
 import { showToast } from "./utils.js";
 
-const CAMINHO_EXTRAS = "../../extras";
+const CAMINHO_EXTRAS = "/extras";
 
 function obterIconePorArquivo(nomeArquivo) {
     const extensao = nomeArquivo.split('.').pop()?.toLowerCase() || '';

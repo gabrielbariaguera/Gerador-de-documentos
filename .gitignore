@@ -1,0 +1,44 @@
+# Dependências
+node_modules/
+
+# Build do Electron
+dist/
+out/
+release/
+
+# Ambiente e secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Cache e temporários
+.cache/
+.tmp/
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Sistema
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# Editores / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Windows / certificados de assinatura
+*.pfx
+*.p12
+*.key
+*.pem
+!*.pub

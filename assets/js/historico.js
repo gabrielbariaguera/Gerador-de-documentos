@@ -69,7 +69,7 @@ function criarCamposNotasBimestrais() {
         }).join('');
 
         return `
-            <div class="card" style="margin-bottom: 14px; border: 1px dashed rgba(15, 118, 110, 0.12);">
+            <div class="card" style="margin-bottom: 14px; border: 1px dashed rgba(11, 61, 145, 0.22);">
                 <div class="card-header" style="padding: 12px 16px;">
                     <strong>${label}</strong>
                 </div>
@@ -149,7 +149,7 @@ function alternarTodosCamposTotaisAulas() {
 
 function criarBlocoAno(index) {
     return `
-        <div class="card" style="margin-bottom: 14px; border: 1px dashed rgba(15, 118, 110, 0.28);">
+        <div class="card" style="margin-bottom: 14px; border: 1px dashed rgba(11, 61, 145, 0.28);">
             <div class="card-header" style="padding: 14px 16px;">
                 <i class="fas fa-calendar-alt"></i>
                 <h3>Ano letivo ${index + 1}</h3>

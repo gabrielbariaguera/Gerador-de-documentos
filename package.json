@@ -1,10 +1,31 @@
 {
   "name": "gerador-de-documentos",
   "private": true,
+  "main": "main.js",
+  "version": "3.0.0",
+  "description": "Sistema de documentos da EMEF Alfredina Coelho",
+  "author": "Gabriel Aguera Baria",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "app": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.emef.documentos",
+    "productName": "Sistema de Documentos",
+    "files": [
+      "**/*",
+      "!dist/**"
+    ],
+    "win": {
+      "target": "nsis"
+    }
   },
   "dependencies": {
     "axios": "^1.20.0"
+  },
+  "devDependencies": {
+    "electron": "^44.4.1",
+    "electron-builder": "^26.15.3"
   }
 }
