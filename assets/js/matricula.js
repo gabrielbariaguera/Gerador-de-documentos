@@ -145,7 +145,11 @@ function gerarMatricula() {
     gerarDocumentoDocx({
         modeloRelativo: '../../modelos/FICHA DE MATRÍCULA.docx',
         dados,
-        outputName: `matricula-${nomeAluno}.docx`
+        outputName: `matricula-${nomeAluno}.docx`,
+        registro: {
+            name: `Matrícula - ${nomeAluno}`,
+            type: 'enrollment'
+        }
     })
         .catch((error) => {
             console.error('Erro ao gerar ficha de matrícula:', error);

@@ -1,6 +1,8 @@
-import { funcionarios, showToast, validarCampos, setBotaoLoading, inicializarFormulario, gerarDocumentoDocx } from "./utils.js";
+import { buscarFuncionario, mensagemErroApi, preencherSelectFuncionarios } from "./api.js";
+import { garantirEquipePadrao } from "./funcionarios-padrao.js";
+import { formatarDataPorExtenso, showToast, validarCampos, setBotaoLoading, inicializarFormulario, gerarDocumentoDocx } from "./utils.js";
 
-function gerarDispensa() {
+async function gerarDispensa() {
     const campos = {
         nomeFuncionario: "nome do funcionário",
         dataDisp: "data da dispensa",
@@ -14,15 +16,8 @@ function gerarDispensa() {
     const botao = document.getElementById('btnGerarAbono');
     setBotaoLoading(botao, true);
 
-    const nomeFunc = document.getElementById("nomeFuncionario").value;
+    const employeeId = Number(document.getElementById("nomeFuncionario").value);
     const dataDispensa = document.getElementById("dataDisp").value;
-    const novaDataDispensa = new Date(`${dataDispensa}T00:00`);
-    const hoje = new Date();
-    const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-    const data = `${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`;
-    const dataDispensaFormatada = `${novaDataDispensa.getDate()} de ${meses[novaDataDispensa.getMonth()]} de ${novaDataDispensa.getFullYear()}`;
-
-    const funcionarioInfo = funcionarios[nomeFunc];
     const dias = document.getElementById("diasDisp").value;
     const diasExtenso = {
         1: "um",
@@ -32,28 +27,45 @@ function gerarDispensa() {
         5: "cinco"
     }[dias] || dias;
 
-    gerarDocumentoDocx({
-        modeloRelativo: "../modelos/MODELO - PEDIDO DISPENSA.docx",
-        dados: {
-            nome: funcionarioInfo.nomeCompleto,
-            cod: funcionarioInfo.cod,
-            cargo: funcionarioInfo.cargo,
-            dataDispensa: dataDispensaFormatada,
-            dia: dias,
-            diaExtenso: diasExtenso,
-            data
-        },
-        outputName: `Dispensa-${nomeFunc}.docx`
-    })
-        .catch((error) => {
-            console.error("Erro ao gerar documento:", error);
-        })
-        .finally(() => {
-            setBotaoLoading(botao, false);
+    try {
+        const funcionarioInfo = await buscarFuncionario(employeeId);
+
+        await gerarDocumentoDocx({
+            modeloRelativo: "../../modelos/MODELO - PEDIDO DISPENSA.docx",
+            dados: {
+                nome: funcionarioInfo.name,
+                cod: funcionarioInfo.code,
+                cargo: funcionarioInfo.position,
+                dataDispensa: formatarDataPorExtenso(dataDispensa),
+                dia: dias,
+                diaExtenso: diasExtenso,
+                data: formatarDataPorExtenso()
+            },
+            outputName: `Dispensa-${funcionarioInfo.name}.docx`,
+            registro: {
+                name: `Dispensa - ${funcionarioInfo.name}`,
+                type: 'exemption',
+                employeeId
+            }
         });
+    } catch (error) {
+        console.error("Erro ao gerar documento:", error);
+        showToast(mensagemErroApi(error), 'error');
+    } finally {
+        setBotaoLoading(botao, false);
+    }
 }
 
 inicializarFormulario({
     buttonId: 'btnGerarAbono',
     onSubmit: gerarDispensa
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        await garantirEquipePadrao();
+        await preencherSelectFuncionarios('nomeFuncionario');
+    } catch (error) {
+        showToast(mensagemErroApi(error), 'error');
+    }
 });

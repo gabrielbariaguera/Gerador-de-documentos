@@ -53,6 +53,16 @@
                 </a>
             </ul>
             <ul class="sidebar-menu">
+                <a href="funcionarios.html">
+                    <li><i class="fas fa-users"></i>Funcionários</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
+                <a href="arquivos.html">
+                    <li><i class="fas fa-archive"></i>Histórico de documentos</li>
+                </a>
+            </ul>
+            <ul class="sidebar-menu">
                 <a href="extras.html">
                     <li><i class="fas fa-folder-open"></i>Documentos Extras</li>
                 </a>
@@ -97,34 +107,6 @@
                             <label for="nomeFuncionario"><i class="fas fa-user"></i> Nome do funcionário:</label>
                             <select name="nomeFuncionario" id="nomeFuncionario" class="form-control">
                                 <option value="" hidden>Selecione o funcionário</option>
-                                <option value="agnaldo">Agnaldo</option>
-                                <option value="aline">Aline</option>
-                                <option value="cacilda">Cacilda</option>
-                                <option value="camila">Camila</option>
-                                <option value="carolina">Carolina</option>
-                                <option value="celia">Célia</option>
-                                <option value="claudiana">Claudiana</option>
-                                <option value="claudineia">Claudinéia</option>
-                                <option value="eliad">Eliad</option>
-                                <option value="eliane">Eliane</option>
-                                <option value="elinety">Elinety</option>
-                                <option value="endagabi">Endagabi</option>
-                                <option value="francielle">Francielle</option>
-                                <option value="izabel">Izabel</option>
-                                <option value="julia">Júlia</option>
-                                <option value="luciana">Luciana</option>
-                                <option value="marcia">Marcia</option>
-                                <option value="marinei">Marinei</option>
-                                <option value="marlei">Marlei</option>
-                                <option value="mathias">Mathias</option>
-                                <option value="neuci">Neuci</option>
-                                <option value="nisleia">Nisléia</option>
-                                <option value="rosana">Rosana</option>
-                                <option value="rosimar">Rosimar</option>
-                                <option value="rosineia">Rosineia</option>
-                                <option value="sebastiao">Sebastião</option>
-                                <option value="suzimara">Suzimara</option>
-                                <option value="vania">Vânia</option>
                             </select>
                         </div>
                     </div>
@@ -152,6 +134,7 @@
         </div>
     </div>
 
+<script src="https://cdn.jsdelivr.net/npm/axios@1.20.0/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.5/dist/pizzip.min.js"></script> <!--Serve para abrir um arquivo modelo-->
 <script src="https://unpkg.com/docxtemplater@3.30.1/build/docxtemplater.js"></script> <!--Serve para adicionar elementos em um documento word-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> <!--Serve para salvar o arquivo modificado-->

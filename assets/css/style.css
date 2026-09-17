@@ -495,10 +495,31 @@ label i {
     color: var(--text-light);
 }
 
-.extras-empty i {
-    font-size: 36px;
-    color: var(--primary-color);
-    margin-bottom: 12px;
+.table-wrap {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 13px;
+}
+
+.data-table th {
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.data-table td .form-control {
+    min-width: 110px;
+    margin: 0;
 }
 
 @media (max-width: 768px) {

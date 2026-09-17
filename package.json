@@ -1,0 +1,10 @@
+{
+  "name": "gerador-de-documentos",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.20.0"
+  }
+}

@@ -56,7 +56,11 @@ function gerarTransferencia() {
             cargoEmissor: emissorInfo.cargo,
             serie
         },
-        outputName: `declaracao-${nomeAluno}.docx`
+        outputName: `declaracao-${nomeAluno}.docx`,
+        registro: {
+            name: `Transferência - ${nomeAluno}`,
+            type: 'transfer'
+        }
     })
         .catch((error) => {
             console.error("Erro ao gerar documento:", error);

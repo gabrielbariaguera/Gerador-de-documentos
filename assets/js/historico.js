@@ -498,7 +498,11 @@ function gerarHistorico() {
     gerarDocumentoDocx({
         modeloRelativo: modelo.arquivo,
         dados,
-        outputName: `${modelo.prefixoArquivo}-${nomeAluno}.docx`
+        outputName: `${modelo.prefixoArquivo}-${nomeAluno}.docx`,
+        registro: {
+            name: `Histórico escolar - ${nomeAluno}`,
+            type: 'schooling'
+        }
     })
         .catch((error) => {
             console.error('Erro ao gerar histórico escolar:', error);
