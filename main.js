@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { iniciarServidor, PORT } = require('./server.js');
 
 let mainWindow;
 
@@ -14,15 +14,15 @@ function createWindow() {
         }
     });
 
-    mainWindow.loadURL('http://localhost:8000');
+    mainWindow.loadURL(`http://localhost:${PORT}`);
     mainWindow.once('ready-to-show', () => {
         mainWindow.show();
     });
 }
 
-app.whenReady().then(() => {
-    require(path.join(__dirname, 'server.js'));
-    setTimeout(createWindow, 800);
+app.whenReady().then(async () => {
+    await iniciarServidor();
+    createWindow();
 });
 
 app.on('window-all-closed', () => {

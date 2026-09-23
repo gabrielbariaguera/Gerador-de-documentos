@@ -5,7 +5,8 @@ node_modules/
 modelos/
 extras/
 
-# Build do Electron
+# Build do SPA (Vite)
+spa/
 dist/
 out/
 release/

@@ -6,9 +6,11 @@
   "description": "Sistema de documentos da EMEF Alfredina Coelho",
   "author": "Gabriel Aguera Baria",
   "scripts": {
+    "dev": "concurrently -k \"node server.js\" \"vite\"",
+    "build:spa": "vite build",
     "start": "node server.js",
-    "app": "electron .",
-    "dist": "electron-builder --win"
+    "app": "vite build && electron .",
+    "dist": "vite build && electron-builder --win"
   },
   "build": {
     "appId": "com.emef.documentos",
@@ -22,10 +24,22 @@
     }
   },
   "dependencies": {
-    "axios": "^1.20.0"
+    "axios": "^1.20.0",
+    "docxtemplater": "^3.50.0",
+    "file-saver": "^2.0.5",
+    "lucide-react": "^1.47.0",
+    "pizzip": "^3.3.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.5",
     "electron": "^44.4.1",
-    "electron-builder": "^26.15.3"
+    "electron-builder": "^26.15.3",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.0"
   }
 }
