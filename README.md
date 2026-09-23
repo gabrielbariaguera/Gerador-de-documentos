@@ -13,7 +13,8 @@ As pastas `modelos/` e `extras/` **não entram no Git** (arquivos da escola). A 
 | Tela | Uso |
 | --- | --- |
 | **Transferência** | Declaração de transferência |
-| **Abonada** | Termo de abono de falta |
+| **Abonada** | Pedido de abono (conta no limite de 6 por ano) |
+| **Eventos** | Datas comemorativas (ex.: Dia dos pais) — não conta como abono |
 | **Dispensa** | Dispensa de funcionário |
 | **Histórico escolar** | Histórico (incluindo modelo de transferência), notas e totais de aulas |
 | **Matrícula** | Ficha de matrícula |
@@ -68,7 +69,7 @@ O servidor local faz proxy de `/api` para essa URL (evita CORS). O front **não*
 
 ### 3. Colocar os modelos Word
 
-Crie a pasta `modelos/` na raiz do projeto e coloque os `.docx` usados pelos formulários. Os placeholders precisam bater com os nomes nos scripts em `assets/js/` (ex.: `{nome}`).
+Crie a pasta `modelos/` na raiz do projeto e coloque os `.docx` usados pelos formulários. Os placeholders precisam bater com os nomes usados nas telas do SPA (ex.: `{nome}`).
 
 Sem esses arquivos a geração do Word falha ao buscar o modelo.
 
@@ -92,9 +93,18 @@ O campo `arquivo` deve ser o nome exato do arquivo na pasta `extras/`.
 
 ### 5. Subir o sistema
 
-**Navegador:**
+**Navegador (desenvolvimento, SPA em React):**
 
 ```bash
+npm run dev
+```
+
+Abra [http://localhost:5173](http://localhost:5173). O servidor da API/modelos continua em `http://localhost:8000`.
+
+**Navegador (produção local):**
+
+```bash
+npm run build:spa
 npm start
 ```
 
@@ -129,20 +139,17 @@ O PC de destino precisa de Windows 64 bits e internet. Não precisa de Node nem 
 ## Estrutura
 
 ```
-├── index.html
+├── index.html              # Entrada do SPA (Vite + React)
+├── src/                    # Telas, layout e tema
 ├── main.js                 # Electron
-├── server.js               # Estáticos + proxy da API
-├── .env.example            # Modelo da URL da API
-├── .env                    # URL real (não versionado)
+├── server.js               # API proxy + modelos + SPA compilado
+├── .env.example
 ├── modelos/                # Templates .docx (não versionado)
 ├── extras/                 # Downloads prontos (não versionado)
-└── assets/
-    ├── css/style.css
-    ├── js/
-    └── pages/
+└── spa/                    # Build do front (gerado com npm run build:spa)
 ```
 
-Geração dos documentos: **PizZip + docxtemplater + FileSaver** (CDN). Comunicação com a API: **Axios** via `/api`.
+O front é um **SPA em React**, com **Tailwind** e cores personalizáveis no canto superior direito. Geração dos documentos: **PizZip + docxtemplater + FileSaver**. Comunicação com a API: **Axios** via `/api`.
 
 ---
 
@@ -164,9 +171,11 @@ Cada funcionário pode ter no máximo **6 abonos por ano**. Excluir o documento 
 
 | Comando | O que faz |
 | --- | --- |
+| `npm run dev` | SPA em `http://localhost:5173` + API em `:8000` |
+| `npm run build:spa` | Gera a pasta `spa/` |
 | `npm start` | Servidor em `http://localhost:8000` |
-| `npm run app` | Abre o Electron |
-| `npm run dist` | Gera o instalador NSIS para Windows |
+| `npm run app` | Compila o SPA e abre o Electron |
+| `npm run dist` | Compila o SPA e gera o instalador Windows |
 
 ---
 

@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+    --app-primary: #127872;
+    --app-primary-hover: #0c5c57;
+    --app-primary-light: #e7f6f4;
+    --app-accent: #0b4f4b;
+    --app-accent-hover: #083c39;
+    --app-bg: #f3faf8;
+    --app-card: #ffffff;
+    --app-text: #12312e;
+    --app-muted: #4e6d69;
+    --app-border: #c5e3de;
+    --app-sidebar: #0e6560;
+    --app-on-primary: #ffffff;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    color: var(--app-text);
+    background: var(--app-bg);
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in {
+    from { opacity: 0; transform: translateX(-12px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-up {
+    animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-slide-in {
+    animation: slide-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.input-app {
+    @apply w-full min-h-[46px] rounded-md border px-3.5 py-3 text-sm outline-none transition;
+    border-color: var(--app-border);
+    background: var(--app-card);
+    color: var(--app-text);
+}
+
+.input-app:focus {
+    border-color: var(--app-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--app-primary) 20%, transparent);
+}
+
+.btn-primary,
+.btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-3 text-sm font-extrabold transition duration-200;
+}
+
+.btn-primary {
+    background: var(--app-primary);
+    color: var(--app-on-primary);
+}
+
+.btn-primary:hover {
+    background: var(--app-primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--app-accent);
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background: var(--app-accent-hover);
+    transform: translateY(-1px);
+}
+
+.card-app {
+    @apply overflow-hidden rounded-[10px] border bg-white transition duration-200;
+    border-color: var(--app-border);
+}
+
+.card-app:hover {
+    border-color: var(--app-primary);
+    box-shadow: inset 3px 0 0 var(--app-accent);
+}

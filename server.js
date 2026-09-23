@@ -24,6 +24,7 @@ carregarEnv();
 const PORT = 8000;
 const API_ORIGIN = (process.env.API_ORIGIN || '').replace(/\/$/, '');
 const ROOT = __dirname;
+const SPA = path.join(ROOT, 'spa');
 
 const MIME = {
     '.html': 'text/html; charset=utf-8',
@@ -35,7 +36,9 @@ const MIME = {
     '.svg': 'image/svg+xml',
     '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    '.pdf': 'application/pdf'
+    '.woff': 'font/woff',
+    '.woff2': 'font/woff2',
+    '.map': 'application/json'
 };
 
 function corsHeaders() {
@@ -90,16 +93,41 @@ function proxyApi(req, res) {
 
 function servirArquivo(req, res) {
     const urlPath = decodeURIComponent(req.url.split('?')[0]);
-    let filePath = path.join(ROOT, urlPath === '/' ? 'index.html' : urlPath);
 
-    if (!filePath.startsWith(ROOT)) {
-        res.writeHead(403);
-        res.end('Forbidden');
-        return;
+    if (urlPath.startsWith('/modelos') || urlPath.startsWith('/extras')) {
+        const filePath = path.join(ROOT, urlPath);
+        if (!filePath.startsWith(ROOT)) {
+            res.writeHead(403);
+            res.end('Forbidden');
+            return;
+        }
+        return enviarArquivo(filePath, res, false);
     }
 
+    const spaPath = path.join(SPA, urlPath === '/' ? 'index.html' : urlPath);
+    if (spaPath.startsWith(SPA)) {
+        return enviarArquivo(spaPath, res, true);
+    }
+
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('Arquivo não encontrado');
+}
+
+function enviarArquivo(filePath, res, fallbackSpa) {
     fs.stat(filePath, (err, stats) => {
         if (err || !stats.isFile()) {
+            if (fallbackSpa) {
+                const index = path.join(SPA, 'index.html');
+                return fs.stat(index, (indexErr, indexStats) => {
+                    if (indexErr || !indexStats.isFile()) {
+                        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+                        res.end('SPA não gerado. Rode npm run build.');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                    fs.createReadStream(index).pipe(res);
+                });
+            }
             res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
             res.end('Arquivo não encontrado');
             return;
@@ -111,13 +139,38 @@ function servirArquivo(req, res) {
     });
 }
 
-http.createServer((req, res) => {
-    if (req.url.startsWith('/api')) {
-        proxyApi(req, res);
-        return;
-    }
-    servirArquivo(req, res);
-}).listen(PORT, () => {
-    const apiInfo = API_ORIGIN ? 'API via /api' : 'defina API_ORIGIN no .env';
-    console.log(`Servidor em http://localhost:${PORT} (${apiInfo})`);
-});
+function iniciarServidor() {
+    return new Promise((resolve, reject) => {
+        const servidor = http.createServer((req, res) => {
+            if (req.url.startsWith('/api')) {
+                proxyApi(req, res);
+                return;
+            }
+            servirArquivo(req, res);
+        });
+
+        servidor.on('error', (error) => {
+            if (error.code === 'EADDRINUSE') {
+                console.log(`Porta ${PORT} já em uso — reutilizando http://localhost:${PORT}`);
+                resolve(false);
+                return;
+            }
+            reject(error);
+        });
+
+        servidor.listen(PORT, () => {
+            const apiInfo = API_ORIGIN ? 'API via /api' : 'defina API_ORIGIN no .env';
+            console.log(`Servidor em http://localhost:${PORT} (${apiInfo})`);
+            resolve(true);
+        });
+    });
+}
+
+if (require.main === module) {
+    iniciarServidor().catch((error) => {
+        console.error(error);
+        process.exit(1);
+    });
+}
+
+module.exports = { iniciarServidor, PORT };
