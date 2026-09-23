@@ -18,6 +18,8 @@ As pastas `modelos/` e `extras/` **não entram no Git** (arquivos da escola). A 
 | **Dispensa** | Dispensa de funcionário |
 | **Histórico escolar** | Histórico (incluindo modelo de transferência), notas e totais de aulas |
 | **Matrícula** | Ficha de matrícula |
+| **Colaborativo** | Quadro mensal de professores e semanas |
+| **Controle de medicamento** | Alunos e histórico dos dias em que trouxeram o remédio |
 | **Documentos extras** | Download de prontuários, termos e requisições prontos |
 
 ### Gestão

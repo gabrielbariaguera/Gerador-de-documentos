@@ -2,10 +2,12 @@ import { NavLink, Outlet } from "react-router-dom";
 import {
     Archive,
     CalendarDays,
+    CalendarRange,
     FileText,
     FolderOpen,
     GraduationCap,
     Palette,
+    Pill,
     Users
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -19,6 +21,8 @@ const MENU = [
     { to: "/historico", label: "Histórico Escolar", icon: GraduationCap },
     { to: "/matricula", label: "Matrícula", icon: FileText },
     { to: "/funcionarios", label: "Funcionários", icon: Users },
+    { to: "/colaborativo", label: "Colaborativo", icon: CalendarRange },
+    { to: "/medicamentos", label: "Controle de medicamento", icon: Pill },
     { to: "/arquivos", label: "Histórico de documentos", icon: Archive },
     { to: "/extras", label: "Documentos Extras", icon: FolderOpen }
 ];
