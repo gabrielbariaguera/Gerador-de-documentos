@@ -1,25 +1,8 @@
-const CHAVE = "medicamentos-documentos";
-
-function estadoVazio() {
-    return { alunos: [] };
-}
-
-export function carregarMedicamentos() {
-    try {
-        const salvo = JSON.parse(localStorage.getItem(CHAVE) || "null");
-        return { alunos: Array.isArray(salvo?.alunos) ? salvo.alunos : [] };
-    } catch {
-        return estadoVazio();
-    }
-}
-
-export function salvarMedicamentos(estado) {
-    localStorage.setItem(CHAVE, JSON.stringify(estado));
-}
-
 export function ultimaEntrega(aluno) {
-    const datas = [...(aluno.entregas || [])]
-        .filter((dia) => /^\d{4}-\d{2}-\d{2}$/.test(String(dia)))
+    if (aluno?.lastDate) return String(aluno.lastDate).slice(0, 10);
+    const datas = [...(aluno?.deliveries || aluno?.entregas || [])]
+        .map((dia) => String(dia).slice(0, 10))
+        .filter((dia) => /^\d{4}-\d{2}-\d{2}$/.test(dia))
         .sort();
     return datas.at(-1) || "";
 }

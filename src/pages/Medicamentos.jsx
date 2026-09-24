@@ -1,9 +1,17 @@
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Pill, Search, Trash2 } from "lucide-react";
 import { Card, Field, PageHeader } from "../components/Ui.jsx";
 import { useToast } from "../components/Toast.jsx";
 import { formatarDataBr } from "../lib/docx.js";
-import { carregarMedicamentos, diaSeguinte, salvarMedicamentos, ultimaEntrega } from "../lib/medicamentos.js";
+import {
+    buscarAlunoMedicamento,
+    cadastrarAlunoMedicamento,
+    excluirAlunoMedicamento,
+    listarAlunosMedicamento,
+    mensagemErroApi,
+    registrarEntregaMedicamento
+} from "../lib/api.js";
+import { diaSeguinte, ultimaEntrega } from "../lib/medicamentos.js";
 
 function dataValida(valor) {
     return /^\d{4}-\d{2}-\d{2}$/.test(String(valor || ""));
@@ -11,41 +19,33 @@ function dataValida(valor) {
 
 export default function Medicamentos() {
     const { toast } = useToast();
-    const [estado, setEstado] = useState(carregarMedicamentos);
+    const [alunos, setAlunos] = useState([]);
     const [nome, setNome] = useState("");
     const [data, setData] = useState("");
     const [busca, setBusca] = useState("");
-    const [consultaId, setConsultaId] = useState("");
+    const [consulta, setConsulta] = useState(null);
     const [novasDatas, setNovasDatas] = useState({});
 
-    function persistir(proximo) {
-        setEstado(proximo);
-        salvarMedicamentos(proximo);
+    const recarregar = useCallback(async (termo = busca) => {
+        const lista = await listarAlunosMedicamento(termo.trim());
+        setAlunos(lista);
+        return lista;
+    }, [busca]);
+
+    useEffect(() => {
+        recarregar("").catch((error) => toast(mensagemErroApi(error), "error"));
+    }, [toast]);
+
+    async function atualizarConsulta(id) {
+        if (!id) {
+            setConsulta(null);
+            return;
+        }
+        const detalhe = await buscarAlunoMedicamento(id);
+        setConsulta(detalhe);
     }
 
-    function adicionarEntrega(aluno, novaData) {
-        if (!dataValida(novaData)) {
-            toast("Escolha o dia, o mês e o ano completos antes de salvar.", "error");
-            return false;
-        }
-
-        const ultimo = ultimaEntrega(aluno);
-        if (ultimo && novaData <= ultimo) {
-            toast(`A data precisa ser depois de ${formatarDataBr(ultimo)}.`, "error");
-            return false;
-        }
-
-        persistir({
-            alunos: estado.alunos.map((item) =>
-                item.id === aluno.id
-                    ? { ...item, entregas: [...new Set([...(item.entregas || []).filter(dataValida), novaData])].sort() }
-                    : item
-            )
-        });
-        return true;
-    }
-
-    function cadastrar() {
+    async function cadastrar() {
         const nomeLimpo = nome.trim();
         if (!nomeLimpo) {
             toast("Informe o nome do aluno.", "error");
@@ -55,56 +55,70 @@ export default function Medicamentos() {
             toast("Informe o dia, o mês e o ano em que o aluno trouxe o remédio.", "error");
             return;
         }
-
-        const existente = estado.alunos.find(
-            (aluno) => aluno.nome.toLocaleLowerCase("pt-BR") === nomeLimpo.toLocaleLowerCase("pt-BR")
-        );
-
-        if (existente) {
-            if (!adicionarEntrega(existente, data)) return;
-            toast("Data registrada. O histórico anterior foi mantido.");
-            setConsultaId(existente.id);
-        } else {
-            persistir({
-                alunos: [
-                    ...estado.alunos,
-                    { id: crypto.randomUUID(), nome: nomeLimpo, entregas: [data] }
-                ]
-            });
-            toast("Aluno cadastrado no controle de medicamento.");
+        try {
+            const aluno = await cadastrarAlunoMedicamento({ name: nomeLimpo, date: data });
+            toast(aluno?.deliveries?.length > 1
+                ? "Data registrada. O histórico anterior foi mantido."
+                : "Aluno cadastrado no controle de medicamento.");
+            setNome("");
+            setData("");
+            await recarregar("");
+            if (aluno?.id) await atualizarConsulta(aluno.id);
+        } catch (error) {
+            toast(mensagemErroApi(error), "error");
         }
-
-        setNome("");
-        setData("");
     }
 
-    function salvarNovaData(aluno) {
+    async function salvarNovaData(aluno) {
         const novaData = novasDatas[aluno.id];
-        if (!adicionarEntrega(aluno, novaData)) return;
-        setNovasDatas((atual) => ({ ...atual, [aluno.id]: "" }));
-        toast("Novo dia registrado. As datas anteriores continuam no histórico.");
+        if (!dataValida(novaData)) {
+            toast("Escolha o dia, o mês e o ano completos antes de salvar.", "error");
+            return;
+        }
+        const ultimo = ultimaEntrega(aluno);
+        if (ultimo && novaData <= ultimo) {
+            toast(`A data precisa ser depois de ${formatarDataBr(ultimo)}.`, "error");
+            return;
+        }
+        try {
+            await registrarEntregaMedicamento(aluno.id, novaData);
+            setNovasDatas((atual) => ({ ...atual, [aluno.id]: "" }));
+            toast("Novo dia registrado. As datas anteriores continuam no histórico.");
+            await recarregar("");
+            if (consulta?.id === aluno.id) await atualizarConsulta(aluno.id);
+        } catch (error) {
+            toast(mensagemErroApi(error), "error");
+        }
     }
 
-    function remover(id) {
-        persistir({ alunos: estado.alunos.filter((aluno) => aluno.id !== id) });
-        if (consultaId === id) setConsultaId("");
+    async function remover(id) {
+        try {
+            await excluirAlunoMedicamento(id);
+            if (consulta?.id === id) setConsulta(null);
+            await recarregar("");
+        } catch (error) {
+            toast(mensagemErroApi(error), "error");
+        }
     }
 
     const filtrados = useMemo(() => {
         const termo = busca.trim().toLocaleLowerCase("pt-BR");
-        return [...estado.alunos]
-            .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
-            .filter((aluno) => !termo || aluno.nome.toLocaleLowerCase("pt-BR").includes(termo));
-    }, [estado.alunos, busca]);
+        return [...alunos]
+            .sort((a, b) => String(a.name).localeCompare(String(b.name), "pt-BR"))
+            .filter((aluno) => !termo || String(aluno.name).toLocaleLowerCase("pt-BR").includes(termo));
+    }, [alunos, busca]);
 
-    const consultado = estado.alunos.find((aluno) => aluno.id === consultaId);
-    const historico = [...(consultado?.entregas || []).filter(dataValida)].sort().reverse();
+    const historico = [...(consulta?.deliveries || [])]
+        .map((dia) => String(dia).slice(0, 10))
+        .filter(dataValida)
+        .sort()
+        .reverse();
 
     return (
         <>
             <PageHeader
                 title="Controle de medicamento"
-                description="Cadastre o aluno e o dia em que trouxe o remédio. Só entra data completa e posterior à última entrega."
+                description="Cadastre o aluno e o dia em que trouxe o remédio. Os registros ficam no banco e as datas antigas não são apagadas."
             />
 
             <Card icon={Pill} title="Registrar entrega">
@@ -145,9 +159,9 @@ export default function Medicamentos() {
                                     const minimo = diaSeguinte(ultimo);
                                     return (
                                         <tr key={aluno.id} className="border-t" style={{ borderColor: "var(--app-border)" }}>
-                                            <td className="p-2 font-bold">{aluno.nome}</td>
+                                            <td className="p-2 font-bold">{aluno.name}</td>
                                             <td className="p-2">{formatarDataBr(ultimo) || "-"}</td>
-                                            <td className="p-2">{aluno.entregas?.filter(dataValida).length || 0}</td>
+                                            <td className="p-2">{aluno.deliveryCount ?? aluno.deliveries?.length ?? 0}</td>
                                             <td className="p-2">
                                                 <div className="flex min-w-[240px] items-center gap-2">
                                                     <input
@@ -163,7 +177,9 @@ export default function Medicamentos() {
                                                 </div>
                                             </td>
                                             <td className="flex gap-2 p-2">
-                                                <button type="button" className="btn-primary" onClick={() => setConsultaId(aluno.id)}>Consultar</button>
+                                                <button type="button" className="btn-primary" onClick={() => atualizarConsulta(aluno.id).catch((error) => toast(mensagemErroApi(error), "error"))}>
+                                                    Consultar
+                                                </button>
                                                 <button type="button" className="btn-secondary px-3" onClick={() => remover(aluno.id)}>
                                                     <Trash2 size={14} />
                                                 </button>
@@ -177,10 +193,10 @@ export default function Medicamentos() {
                 )}
             </Card>
 
-            {consultado ? (
-                <Card title={`Histórico · ${consultado.nome}`} delay={80}>
+            {consulta ? (
+                <Card title={`Histórico · ${consulta.name}`} delay={80}>
                     <p className="mb-3 text-sm" style={{ color: "var(--app-muted)" }}>
-                        Último dia: <strong>{formatarDataBr(ultimaEntrega(consultado)) || "-"}</strong>
+                        Último dia: <strong>{formatarDataBr(ultimaEntrega(consulta)) || "-"}</strong>
                     </p>
                     <ul className="flex flex-col gap-2">
                         {historico.map((dia) => (

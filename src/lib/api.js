@@ -79,5 +79,58 @@ export async function baixarDocumentoArquivo(id) {
 }
 
 export async function excluirDocumento(id) {
-    return dadosDaResposta(await api.delete(`/docs/${id}`));
+    const resposta = await api.delete(`/docs/${id}`);
+    return dadosDaResposta(resposta);
+}
+
+export async function listarProfessoresColaborativo() {
+    const dados = dadosDaResposta(await api.get("/collaborative/teachers"));
+    return Array.isArray(dados) ? dados : [];
+}
+
+export async function adicionarProfessorColaborativo(payload) {
+    return dadosDaResposta(await api.post("/collaborative/teachers", payload));
+}
+
+export async function excluirProfessorColaborativo(id) {
+    return dadosDaResposta(await api.delete(`/collaborative/teachers/${id}`));
+}
+
+export async function listarMesesColaborativo() {
+    const dados = dadosDaResposta(await api.get("/collaborative/months"));
+    return Array.isArray(dados) ? dados.map(String).sort() : [];
+}
+
+export async function criarMesColaborativo(yearMonth) {
+    return dadosDaResposta(await api.post("/collaborative/months", { yearMonth }));
+}
+
+export async function listarMarcacoesColaborativo(yearMonth) {
+    const dados = dadosDaResposta(await api.get("/collaborative/entries", { params: { yearMonth } }));
+    return Array.isArray(dados) ? dados : [];
+}
+
+export async function salvarMarcacaoColaborativo(payload) {
+    return dadosDaResposta(await api.put("/collaborative/entries", payload));
+}
+
+export async function listarAlunosMedicamento(q = "") {
+    const dados = dadosDaResposta(await api.get("/medication/students", { params: q ? { q } : {} }));
+    return Array.isArray(dados) ? dados : [];
+}
+
+export async function buscarAlunoMedicamento(id) {
+    return dadosDaResposta(await api.get(`/medication/students/${id}`));
+}
+
+export async function cadastrarAlunoMedicamento(payload) {
+    return dadosDaResposta(await api.post("/medication/students", payload));
+}
+
+export async function registrarEntregaMedicamento(id, date) {
+    return dadosDaResposta(await api.post(`/medication/students/${id}/deliveries`, { date }));
+}
+
+export async function excluirAlunoMedicamento(id) {
+    return dadosDaResposta(await api.delete(`/medication/students/${id}`));
 }

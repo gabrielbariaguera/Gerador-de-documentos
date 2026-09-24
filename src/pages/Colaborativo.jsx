@@ -1,38 +1,64 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CalendarRange, Trash2, Users } from "lucide-react";
 import { Card, Field, PageHeader } from "../components/Ui.jsx";
 import { useToast } from "../components/Toast.jsx";
-import { listarFuncionarios, mensagemErroApi } from "../lib/api.js";
+import {
+    adicionarProfessorColaborativo,
+    criarMesColaborativo,
+    excluirProfessorColaborativo,
+    listarFuncionarios,
+    listarMarcacoesColaborativo,
+    listarMesesColaborativo,
+    listarProfessoresColaborativo,
+    mensagemErroApi,
+    salvarMarcacaoColaborativo
+} from "../lib/api.js";
 import { garantirEquipePadrao } from "../lib/funcionarios-padrao.js";
 import {
-    carregarColaborativo,
     chaveMes,
-    garantirMes,
     intervaloSemana,
     partirChaveMes,
     proximoMesChave,
     quantidadeSemanas,
-    rotuloMes,
-    salvarColaborativo
+    rotuloMes
 } from "../lib/colaborativo.js";
 
 const hoje = new Date();
+const mesAtual = chaveMes(hoje.getFullYear(), hoje.getMonth() + 1);
 
 export default function Colaborativo() {
     const { toast } = useToast();
     const [funcionarios, setFuncionarios] = useState([]);
-    const [estado, setEstado] = useState(() => {
-        const inicial = carregarColaborativo();
-        return garantirMes(inicial, chaveMes(hoje.getFullYear(), hoje.getMonth() + 1));
-    });
-    const [mesChave, setMesChave] = useState(() => chaveMes(hoje.getFullYear(), hoje.getMonth() + 1));
+    const [professores, setProfessores] = useState([]);
+    const [meses, setMeses] = useState([mesAtual]);
+    const [marcacoes, setMarcacoes] = useState([]);
+    const [mesChave, setMesChave] = useState(mesAtual);
     const [novoId, setNovoId] = useState("");
     const [limite, setLimite] = useState("1");
+    const [rascunho, setRascunho] = useState({});
 
     const { ano, mes } = partirChaveMes(mesChave);
     const semanas = quantidadeSemanas(ano, mes);
-    const idsNoQuadro = useMemo(() => new Set(estado.professores.map((item) => String(item.employeeId))), [estado.professores]);
+    const idsNoQuadro = useMemo(() => new Set(professores.map((item) => String(item.employeeId))), [professores]);
     const disponiveis = funcionarios.filter((item) => !idsNoQuadro.has(String(item.id)));
+
+    const recarregarProfessores = useCallback(async () => {
+        const lista = await listarProfessoresColaborativo();
+        setProfessores(lista);
+    }, []);
+
+    const recarregarMeses = useCallback(async () => {
+        const lista = await listarMesesColaborativo();
+        const unicos = [...new Set([mesAtual, ...lista])].sort();
+        setMeses(unicos);
+        return unicos;
+    }, []);
+
+    const recarregarMarcacoes = useCallback(async (chave) => {
+        const lista = await listarMarcacoesColaborativo(chave);
+        setMarcacoes(lista);
+        setRascunho({});
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -40,94 +66,108 @@ export default function Colaborativo() {
                 await garantirEquipePadrao();
                 const lista = await listarFuncionarios();
                 setFuncionarios([...lista].sort((a, b) => String(a.name).localeCompare(String(b.name), "pt-BR")));
+                await recarregarProfessores();
+                const mesesApi = await recarregarMeses();
+                if (!mesesApi.includes(mesAtual)) {
+                    await criarMesColaborativo(mesAtual);
+                    await recarregarMeses();
+                }
+                await recarregarMarcacoes(mesAtual);
             } catch (error) {
                 toast(mensagemErroApi(error), "error");
             }
         })();
-    }, [toast]);
+    }, [recarregarMarcacoes, recarregarMeses, recarregarProfessores, toast]);
 
-    function persistir(proximo) {
-        setEstado(proximo);
-        salvarColaborativo(proximo);
+    async function abrirMes(chave) {
+        try {
+            await criarMesColaborativo(chave);
+            const mesesApi = await recarregarMeses();
+            setMesChave(chave);
+            if (!mesesApi.includes(chave)) {
+                setMeses((atual) => [...new Set([...atual, chave])].sort());
+            }
+            await recarregarMarcacoes(chave);
+        } catch (error) {
+            toast(mensagemErroApi(error), "error");
+        }
     }
 
-    function abrirMes(chave) {
-        const proximo = garantirMes(estado, chave);
-        persistir(proximo);
-        setMesChave(chave);
+    async function abrirProximoMes() {
+        const ultimo = [...meses].sort().at(-1) || mesChave;
+        await abrirMes(proximoMesChave(ultimo));
     }
 
-    function abrirProximoMes() {
-        const ultimo = [...estado.meses].sort().at(-1) || mesChave;
-        abrirMes(proximoMesChave(ultimo));
-    }
-
-    function adicionar() {
+    async function adicionar() {
         const funcionario = funcionarios.find((item) => String(item.id) === String(novoId));
-        const limiteSemana = Number(limite);
+        const weeklyLimit = Number(limite);
         if (!funcionario) {
             toast("Selecione o professor.", "error");
             return;
         }
-        if (!limiteSemana || limiteSemana < 1) {
+        if (!weeklyLimit || weeklyLimit < 1) {
             toast("Informe quantos colaborativos ele pode dar por semana.", "error");
             return;
         }
-        persistir({
-            ...estado,
-            professores: [
-                ...estado.professores,
-                {
-                    id: crypto.randomUUID(),
-                    employeeId: funcionario.id,
-                    name: funcionario.name,
-                    limiteSemana
-                }
-            ]
-        });
-        setNovoId("");
-        setLimite("1");
-        toast(`${funcionario.name} entrou no colaborativo.`);
-    }
-
-    function remover(id) {
-        persistir({
-            ...estado,
-            professores: estado.professores.filter((item) => item.id !== id)
-        });
-    }
-
-    function valorCelula(professorId, semana) {
-        return Number(estado.registros?.[mesChave]?.[professorId]?.[semana] || 0);
-    }
-
-    function marcar(professorId, semana, valor, limiteSemana) {
-        const quantidade = Math.max(0, Number(valor) || 0);
-        if (quantidade > limiteSemana) {
-            toast(`O limite deste professor é ${limiteSemana} por semana.`, "error");
+        try {
+            await adicionarProfessorColaborativo({ employeeId: Number(funcionario.id), weeklyLimit });
+            setNovoId("");
+            setLimite("1");
+            await recarregarProfessores();
+            toast(`${funcionario.name} entrou no colaborativo.`);
+        } catch (error) {
+            toast(mensagemErroApi(error), "error");
         }
-        const registrosMes = { ...(estado.registros[mesChave] || {}) };
-        const doProfessor = { ...(registrosMes[professorId] || {}) };
-        doProfessor[semana] = quantidade;
-        registrosMes[professorId] = doProfessor;
-        persistir({
-            ...estado,
-            registros: { ...estado.registros, [mesChave]: registrosMes }
-        });
+    }
+
+    async function remover(id) {
+        try {
+            await excluirProfessorColaborativo(id);
+            await recarregarProfessores();
+            await recarregarMarcacoes(mesChave);
+        } catch (error) {
+            toast(mensagemErroApi(error), "error");
+        }
+    }
+
+    function valorCelula(teacherId, semana) {
+        const chave = `${teacherId}-${semana}`;
+        if (rascunho[chave] !== undefined) return rascunho[chave];
+        const item = marcacoes.find((marcacao) => Number(marcacao.teacherId) === Number(teacherId) && Number(marcacao.week) === semana);
+        return Number(item?.count || 0);
+    }
+
+    async function confirmarMarcacao(teacherId, semana, weeklyLimit) {
+        const quantidade = Math.max(0, Number(valorCelula(teacherId, semana)) || 0);
+        if (quantidade > weeklyLimit) {
+            toast(`O limite deste professor é ${weeklyLimit} por semana.`, "error");
+            return;
+        }
+        try {
+            await salvarMarcacaoColaborativo({
+                teacherId: Number(teacherId),
+                yearMonth: mesChave,
+                week: semana,
+                count: quantidade
+            });
+            await recarregarMarcacoes(mesChave);
+        } catch (error) {
+            toast(mensagemErroApi(error), "error");
+        }
     }
 
     return (
         <>
             <PageHeader
                 title="Colaborativo"
-                description="Os meses usados ficam salvos. Troque pelo select ou abra o mês seguinte."
+                description="Os meses e as marcações ficam salvos no banco. Troque pelo select ou abra o mês seguinte."
             />
 
             <Card icon={CalendarRange} title="Mês">
                 <div className="grid gap-4 md:grid-cols-[1fr_auto]">
                     <Field label="Mês armazenado">
                         <select className="input-app" value={mesChave} onChange={(e) => abrirMes(e.target.value)}>
-                            {estado.meses.map((chave) => (
+                            {meses.map((chave) => (
                                 <option key={chave} value={chave}>{rotuloMes(chave)}</option>
                             ))}
                         </select>
@@ -151,14 +191,7 @@ export default function Colaborativo() {
                         </select>
                     </Field>
                     <Field label="Por semana">
-                        <input
-                            type="number"
-                            min="1"
-                            max="20"
-                            className="input-app"
-                            value={limite}
-                            onChange={(e) => setLimite(e.target.value)}
-                        />
+                        <input type="number" min="1" max="20" className="input-app" value={limite} onChange={(e) => setLimite(e.target.value)} />
                     </Field>
                     <div className="flex items-end pb-4">
                         <button type="button" className="btn-primary w-full md:w-auto" onClick={adicionar}>Adicionar</button>
@@ -167,7 +200,7 @@ export default function Colaborativo() {
             </Card>
 
             <Card title={`Quadro · ${rotuloMes(mesChave)}`} delay={80}>
-                {estado.professores.length === 0 ? (
+                {professores.length === 0 ? (
                     <p style={{ color: "var(--app-muted)" }}>Nenhum professor no colaborativo ainda.</p>
                 ) : (
                     <div className="overflow-x-auto">
@@ -193,19 +226,19 @@ export default function Colaborativo() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {estado.professores.map((professor) => (
+                                {professores.map((professor) => (
                                     <tr key={professor.id}>
                                         <td className="sticky left-0 z-10 border-t bg-white p-3" style={{ borderColor: "var(--app-border)" }}>
                                             <strong className="block">{professor.name}</strong>
                                             <span className="text-xs" style={{ color: "var(--app-muted)" }}>
-                                                até {professor.limiteSemana} por semana
+                                                até {professor.weeklyLimit} por semana
                                             </span>
                                         </td>
                                         {Array.from({ length: semanas }, (_, index) => {
                                             const semana = index + 1;
                                             const valor = valorCelula(professor.id, semana);
-                                            const estourou = valor > professor.limiteSemana;
-                                            const completo = valor === professor.limiteSemana;
+                                            const estourou = valor > professor.weeklyLimit;
+                                            const completo = valor === professor.weeklyLimit;
                                             return (
                                                 <td key={semana} className="border-t p-2 text-center" style={{ borderColor: "var(--app-border)" }}>
                                                     <input
@@ -213,7 +246,8 @@ export default function Colaborativo() {
                                                         min="0"
                                                         className="input-app mx-auto max-w-[88px] text-center font-bold"
                                                         value={valor}
-                                                        onChange={(e) => marcar(professor.id, semana, e.target.value, professor.limiteSemana)}
+                                                        onChange={(e) => setRascunho((atual) => ({ ...atual, [`${professor.id}-${semana}`]: e.target.value }))}
+                                                        onBlur={() => confirmarMarcacao(professor.id, semana, professor.weeklyLimit)}
                                                         style={{
                                                             borderColor: estourou ? "var(--app-accent)" : completo ? "var(--app-primary)" : "var(--app-border)",
                                                             background: estourou ? "color-mix(in srgb, var(--app-accent) 12%, white)" : "var(--app-card)"
